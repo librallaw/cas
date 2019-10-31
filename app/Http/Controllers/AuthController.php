@@ -50,9 +50,18 @@ class AuthController extends Controller
 
         User::reguard();
 
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+
         return response()->json([
             'status'=> true,
             'message' => 'Successfully created user!',
+            'access_token' => "Bearer ".$tokenResult->accessToken,
+            'token_type' => 'Bearer',
+            'user' => Auth::user(),
+            'expires_at' => Carbon::parse(
+                $tokenResult->token->expires_at
+            )->toDateTimeString()
 
         ], 201);
     }
