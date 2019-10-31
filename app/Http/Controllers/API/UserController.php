@@ -51,6 +51,7 @@ class UserController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);
         }
         //$input = $request->all();
+
         $user = new User();
         $user->full_name    = $request->full_name;
         $user->email        = $request->email;

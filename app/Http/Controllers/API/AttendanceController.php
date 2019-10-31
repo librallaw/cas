@@ -31,9 +31,7 @@ class AttendanceController extends Controller
         //validate
         $validate = Validator::make($request->all(), [
 
-            'church_id'     => 'required',
             'member_id'     => 'required',
-            'arrival_time'  => 'required',
             'service_date'  => 'required',
             'service_type'  => 'required'
         ]);
@@ -46,7 +44,7 @@ class AttendanceController extends Controller
             $attend = new Attendance();
             $attend -> church_id    = Auth::user()->unique_id;
             $attend -> member_id    = Auth::Members();
-            $attend -> arrival_time = $request -> arrival_time;
+            $attend -> arrival_time = time();
             $attend -> service_date = $request -> service_date;
             $attend -> service_type = $request -> service_type;
             $attend -> save();

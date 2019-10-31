@@ -20,8 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::post('login', 'API\UserController@login');
-Route::post('register', 'API\UserController@register');
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
 
@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('members/lists', 'API\MembersController@lists');
 
-    Route::post('service','API\ServiceController@store');
+    Route::post('service/create','API\ServiceController@store');
 
     Route::post('attendance','API\AttendanceController@store');
 

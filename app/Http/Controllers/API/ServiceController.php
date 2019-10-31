@@ -51,7 +51,7 @@ class ServiceController extends Controller
             return response()->json([
                 'status'    => true,
                 'message'   => "Service created successfully",
-                'member'    => $service
+                'service'    => $service
             ]);
         }
 
