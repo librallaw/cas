@@ -227,4 +227,28 @@ class MembersController extends Controller
     {
         //
     }
+
+    public function groups(){
+
+        $grp_array = array();
+        $a = Members::select('group_assigned')->where("church_id",Auth::user()->unique_id)->groupBy("group_assigned")->get();
+
+
+        if($a){
+
+            foreach ($a as $item) {
+                $grp_array[] = $item->group_assigned;
+            }
+
+            return response()->json([
+                'status'    => true,
+                'data'      => $grp_array
+            ]);
+        }else{
+            return response()->json([
+                'status'    => false,
+                'message'   => 'No record found.'
+            ]);
+        }
+    }
 }

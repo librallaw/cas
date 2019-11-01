@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('attendance/create','API\AttendanceController@store');
 
+    Route::get('members/groups','API\MembersController@groups');
+
 
 });
 
