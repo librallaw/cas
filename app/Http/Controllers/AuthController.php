@@ -56,6 +56,7 @@ class AuthController extends Controller
         return response()->json([
             'status'=> true,
             'message' => 'Successfully created user!',
+            'data'    => $user,
             'access_token' => "Bearer ".$tokenResult->accessToken,
             'token_type' => 'Bearer',
             'user' => Auth::user(),

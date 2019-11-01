@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('service/create','API\ServiceController@store');
 
-    Route::post('attendance','API\AttendanceController@store');
+    Route::post('attendance/create','API\AttendanceController@store');
 
 
 });

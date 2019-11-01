@@ -7,6 +7,7 @@ use App\Attendance;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
 
 class AttendanceController extends Controller
 {
@@ -43,24 +44,26 @@ class AttendanceController extends Controller
         } else {
             $attend = new Attendance();
             $attend -> church_id    = Auth::user()->unique_id;
-            $attend -> member_id    = Auth::Members();
+            $attend -> member_id    = $request -> member_id;
             $attend -> arrival_time = time();
             $attend -> service_date = $request -> service_date;
             $attend -> service_type = $request -> service_type;
             $attend -> save();
 
-            $checker = Attendance::select('id')->where('id',$request->id)->exists();
+            $checker = Attendance::select('id')->where('id',$request->member_id)->exists();
+
 
             if($checker){
 
-                return response()->json(['status'=> true, 'message'=>'Record Exists']);
+                return back()->withInput();
+                //return response()->json(['status'=> true, 'message'=>'Record Exists']);
             }
 
             return response()->json([
 
                 'status'    => true,
-                'message'   => "Service created successfully",
-                'member'    => $attend
+                'message'   => "Attendance created successfully",
+                'attendance'    => $attend
 
             ]);
         }

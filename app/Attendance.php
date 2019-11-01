@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Attendance extends Model
 {
     //
+    protected $table = 'attendance';
+
 
     protected $fillable = [
-        'id',
         'church_id',
         'member_id',
         'arrival_time',
         'service_date',
-        'service_type'
+        'service_type',
     ];
 }
 
