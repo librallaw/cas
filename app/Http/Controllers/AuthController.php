@@ -28,7 +28,7 @@ class AuthController extends Controller
                 'status'=>false,
                 'message' => 'Sorry your reqistration could not be completed',
                 'errors' =>$validator->errors()->all() ,
-            ], 400);
+            ], 401);
 
 
         }
@@ -54,13 +54,13 @@ class AuthController extends Controller
         $token = $tokenResult->token;
 
         return response()->json([
-            'status'=> true,
-            'message' => 'Successfully created user!',
-            'data'    => $user,
-            'access_token' => "Bearer ".$tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'user' => Auth::user(),
-            'expires_at' => Carbon::parse(
+            'status'        => true,
+            'message'       => 'Successfully created user!',
+            'data'          => $user,
+            'access_token'  => "Bearer ".$tokenResult->accessToken,
+            'token_type'    => 'Bearer',
+            'user'          => Auth::user(),
+            'expires_at'    => Carbon::parse(
                 $tokenResult->token->expires_at
             )->toDateTimeString()
 
@@ -71,8 +71,8 @@ class AuthController extends Controller
     public function login(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+            'email'     => 'required|string|email',
+            'password'  => 'required|string',
         ]);
 
 

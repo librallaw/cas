@@ -50,13 +50,15 @@ class AttendanceController extends Controller
             $attend -> service_type = $request -> service_type;
             $attend -> save();
 
-            $checker = Attendance::select('id')->where('id',$request->member_id)->exists();
 
+            $checker = Attendance::select('id')->where('id',$request->member_id)->where('service_date',$request->service_date)->exists();
 
-            if($checker){
+            if($checker) {
 
-                return back()->withInput();
-                //return response()->json(['status'=> true, 'message'=>'Record Exists']);
+                dd($attend);
+
+                //return back()->withInput();
+                //return response()->json(['status'=> true, 'message'=>'Had no record']);
             }
 
             return response()->json([
