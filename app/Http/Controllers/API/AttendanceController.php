@@ -57,12 +57,10 @@ class AttendanceController extends Controller
 
                 dd($attend);
 
-                //return back()->withInput();
                 //return response()->json(['status'=> true, 'message'=>'Had no record']);
             }
 
             return response()->json([
-
                 'status'    => true,
                 'message'   => "Attendance created successfully",
                 'attendance'    => $attend

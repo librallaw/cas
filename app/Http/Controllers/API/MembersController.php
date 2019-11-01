@@ -198,9 +198,16 @@ class MembersController extends Controller
     //This method fetch all members record from db
     public function lists() {
 
+        if(isset($_GET['num'])){
+            $members   =  Members::where("church_id",Auth::user()->unique_id)->take($_GET['num'])->get();
+        }else{
+            $members   =  Members::where("church_id",Auth::user()->unique_id)->get();
+        }
+
+
         return response()->json([
             'status'    => true,
-            'data'      => Members::all()
+            'data'      => $members
         ]);
     }
 
