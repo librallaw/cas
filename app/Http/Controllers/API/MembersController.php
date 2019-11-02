@@ -190,7 +190,7 @@ class MembersController extends Controller
                 $failure->values(); // The values of the row that has failed.
             }
 
-              dd($import);
+             // dd($import);
 
                     return response()->json([
                         'status'    => true,

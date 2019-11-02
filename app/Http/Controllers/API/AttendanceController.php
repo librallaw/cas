@@ -39,9 +39,14 @@ class AttendanceController extends Controller
 
         if($validate->fails()){
 
-            return response()->json(['error'=>$validate->errors()],'401');
+            return response()->json([
+                'status'=>false,
+                'message' => 'Sorry your request could not be completed,please check the fields and try again',
+                'errors' =>$validate->errors()->all() ,
+            ], 401);
 
         } else {
+
             $attend = new Attendance();
             $attend -> church_id    = Auth::user()->unique_id;
             $attend -> member_id    = $request -> member_id;
