@@ -68,7 +68,7 @@ class AttendanceController extends Controller
                 ]);
             }
 
-            return response()->json(['status'=> true, 'message'=>'Record exists']);
+            return response()->json(['status'=> true, 'message'=>'Attendance already taken for this service date']);
 
         }
 
