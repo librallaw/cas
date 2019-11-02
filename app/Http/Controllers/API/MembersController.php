@@ -53,7 +53,7 @@ class MembersController extends Controller
     {
         //validate
         $validator = Validator::make($request->all(), [
-           'title'              => 'required',
+            'title'             => 'required',
             'full_name'         => 'required',
             'gender'            => 'required',
             'birth_date'        => 'required',
@@ -64,7 +64,11 @@ class MembersController extends Controller
             'home_address'      => 'required'
         ]);
         if($validator->fails()){
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json([
+                'status'=>false,
+                'message' => 'Sorry your reqistration could not be completed',
+                'errors' =>$validator->errors()->all() ,
+            ], 401);
         } else {
             $mem = new Members();
             $mem->title             = $request->title;
