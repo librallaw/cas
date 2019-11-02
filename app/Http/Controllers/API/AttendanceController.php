@@ -34,7 +34,6 @@ class AttendanceController extends Controller
 
             'member_id'     => 'required',
             'service_date'  => 'required',
-            'service_type'  => 'required'
         ]);
 
         if($validate->fails()){
@@ -47,30 +46,30 @@ class AttendanceController extends Controller
 
         } else {
 
-            $attend = new Attendance();
-            $attend -> church_id    = Auth::user()->unique_id;
-            $attend -> member_id    = $request -> member_id;
-            $attend -> arrival_time = time();
-            $attend -> service_date = $request -> service_date;
-            $attend -> service_type = $request -> service_type;
-            $attend -> save();
-
-
-            $checker = Attendance::select('id')->where('id',$request->member_id)->where('service_date',$request->service_date)->exists();
+            $checker = Attendance::select('service_date')->where('church_id',Auth::user()->unique_id)->where('service_date',$request->service_date)->doesntExist();
 
             if($checker) {
 
-                dd($attend);
+                $attend = new Attendance();
+                $attend -> church_id    = Auth::user()->unique_id;
+                $attend -> member_id    = $request -> member_id;
+                $attend -> arrival_time = time();
+                $attend -> service_date = $request -> service_date;
+                $attend -> service_type = $request -> service_type;
+                $attend -> save();
+                //dd($attend);
 
-                //return response()->json(['status'=> true, 'message'=>'Had no record']);
+
+                return response()->json([
+                    'status'    => true,
+                    'message'   => "Attendance created successfully",
+                    'attendance'    => $attend
+
+                ]);
             }
 
-            return response()->json([
-                'status'    => true,
-                'message'   => "Attendance created successfully",
-                'attendance'    => $attend
+            return response()->json(['status'=> true, 'message'=>'Record exists']);
 
-            ]);
         }
 
 

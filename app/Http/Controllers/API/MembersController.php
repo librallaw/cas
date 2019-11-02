@@ -208,12 +208,13 @@ class MembersController extends Controller
             $members   =  Members::where("church_id",Auth::user()->unique_id)->get();
         }
 
-
         return response()->json([
             'status'    => true,
             'data'      => $members
         ]);
     }
+
+
 
     public function export()
     {
@@ -255,4 +256,26 @@ class MembersController extends Controller
             ]);
         }
     }
+
+    public function active(){
+
+            $active = Members::where('church_id',Auth::user()->unique_id)->where('active',1)->get();
+            if($active){
+
+                return response()->json([
+                    'status'    => true,
+                    'data'      => $active
+                ]);
+            } else{
+                return response()->json([
+                    'status'    => false,
+                    'message'   => 'No active members found.'
+                ]);
+            }
+
+
+
+    }
+
+
 }
