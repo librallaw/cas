@@ -277,5 +277,25 @@ class MembersController extends Controller
 
     }
 
+    public function in_active(){
+
+        $active = Members::where('church_id',Auth::user()->unique_id)->where('active',0)->get();
+        if($active){
+
+            return response()->json([
+                'status'    => true,
+                'data'      => $active
+            ]);
+        } else{
+            return response()->json([
+                'status'    => false,
+                'message'   => 'No active members found.'
+            ]);
+        }
+
+
+
+    }
+
 
 }

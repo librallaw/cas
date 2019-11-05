@@ -90,4 +90,19 @@ class ServiceController extends Controller
     {
         //
     }
+
+    public function service_list() {
+
+        if(isset($_GET['num'])){
+            $services   =  Service::where("church_id",Auth::user()->unique_id)->take($_GET['num'])->get();
+        } else {
+            $services   =  Service::where("church_id",Auth::user()->unique_id)->get();
+        }
+
+
+//        return response()->json([
+//            'status'    => true,
+//            'data'      => $services
+//        ]);
+    }
 }

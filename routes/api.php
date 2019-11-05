@@ -39,13 +39,17 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('members/lists', 'API\MembersController@lists');
 
-    Route::post('service/create','API\ServiceController@store');
+    Route::get('service/service_list','API\ServiceController@service_list');
+
+    Route::post('service/list','API\ServiceController@store');
 
     Route::post('attendance/create','API\AttendanceController@store');
 
     Route::get('members/groups','API\MembersController@groups');
 
     Route::get('members/active','API\MembersController@active');
+
+    Route::get('members/in_active','API\MembersController@in_active');
 
 
 });
