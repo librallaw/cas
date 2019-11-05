@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('members/edit', 'API\MembersController@edit');
 
-    Route::get('user/profile', 'API\UserController@profile');
+    Route::get('user/profile', 'AuthController@profile');
 
     Route::post('members/bulkUpload','API\MembersController@bulkUpload');
 
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('service/service_list','API\ServiceController@service_list');
 
-    Route::post('service/list','API\ServiceController@store');
+    Route::post('service/create','API\ServiceController@store');
 
     Route::post('attendance/create','API\AttendanceController@store');
 

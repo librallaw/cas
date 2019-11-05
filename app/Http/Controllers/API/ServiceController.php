@@ -100,9 +100,9 @@ class ServiceController extends Controller
         }
 
 
-//        return response()->json([
-//            'status'    => true,
-//            'data'      => $services
-//        ]);
+        return response()->json([
+            'status'    => true,
+            'data'      => $services
+        ]);
     }
 }
