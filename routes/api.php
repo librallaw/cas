@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('service/create','API\ServiceController@store');
 
+    Route::get('attendance/attendees','API\AttendanceController@attendees');
+
     Route::post('attendance/create','API\AttendanceController@store');
 
     Route::get('members/groups','API\MembersController@groups');

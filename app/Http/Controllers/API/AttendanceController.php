@@ -75,6 +75,26 @@ class AttendanceController extends Controller
 
     }
 
+    public function attendees(Request $request) {
+
+        $attendees = Attendance::select('*')->where('church_id',Auth::user()->unique_id)->where('service_type',$request->service_type)->get();
+
+        //Members::select('group_assigned')->where("church_id",Auth::user()->unique_id)->groupBy("group_assigned")->get();
+
+        if($attendees) {
+            return response()->json([
+                'status'    => true,
+                'data'      => $attendees
+            ]);
+        } else {
+            return response()->json([
+                'status'    => false,
+                'data'      => $attendees
+            ]);
+        }
+    }
+
+
     /**
      * Display the specified resource.
      *
