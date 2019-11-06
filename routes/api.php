@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-
+Route::get('leaders/list','API\LeadersController@leaders');
 
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
@@ -50,6 +50,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('members/active','API\MembersController@active');
 
     Route::get('members/in_active','API\MembersController@in_active');
+
+
 
 
 });
