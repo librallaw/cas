@@ -12,4 +12,9 @@ class Service extends Model
         'church_id',
         'service_type',
     ];
+
+    public function attendance()
+    {
+       // return $this->hasMany(Service::class,)
+    }
 }
