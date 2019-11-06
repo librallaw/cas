@@ -57,6 +57,41 @@ class ServiceController extends Controller
 
     }
 
+
+    public function lastService()
+    {
+        $service = Service::where("church_id",Auth::user()->unique_id)->latest()->first();
+
+
+
+
+
+        if(count($service) > 0) {
+
+
+            return response()->json([
+                'status' => true,
+                'message' => "Successfully",
+                'data' => $service->attendance,
+                'attendance' => count($service->attendance)
+            ]);
+        }
+
+
+        else {
+
+            return response()->json([
+                'status' => true,
+                'message' => "No service found for this service",
+                'data' => []
+            ]);
+
+        }
+
+
+
+    }
+
     /**
      * Display the specified resource.
      *

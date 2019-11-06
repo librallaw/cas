@@ -18,12 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('leaders/list','API\LeadersController@leaders');
 
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
+
+    Route::get('leaders/list','API\LeadersController@leaders');
 
     Route::post('details', 'API\UserController@details');
 
@@ -54,6 +55,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
     Route::post('attendance/create','API\AttendanceController@store');
+    Route::get('attendance/last','API\ServiceController@lastService');
 
 
 
