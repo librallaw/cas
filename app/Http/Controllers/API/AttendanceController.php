@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Resources\SingleAttendanceResource;
 use App\Members;
 use App\Service;
 use Illuminate\Http\Request;
@@ -226,21 +227,24 @@ class AttendanceController extends Controller
         }
 
 
-        $attendance = Attendance::where("church_id",Auth::user()->unique_id)->where('service_date',$request->date)
-            ->get();
+        $attendance = Attendance::where("church_id",Auth::user()->unique_id)->where('service_date',
+            $request->service_date)
+            ->first();
+
+
 
         if(count($attendance) > 0)
 
             return response()->json([
                 'status' => true,
-                'data' => $attendance,
+                'data' => new SingleAttendanceResource($attendance),
             ]);
 
         else
             return response()->json([
                 'status' => false,
                 'message' => "No Attendance found for the requested date",
-                'data' => $attendance,
+                'data' => [],
             ]);
     }
 

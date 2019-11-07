@@ -17,5 +17,11 @@ class Attendance extends Model
         'service_date',
         'service_type',
     ];
+
+
+    public function member()
+    {
+        return $this->belongsTo(Members::class,'member_id', 'id');
+    }
 }
 

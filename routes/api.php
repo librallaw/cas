@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('attendance/create','API\AttendanceController@store');
     Route::get('attendance/last','API\ServiceController@lastService');
 
-    Route::get('attendance/single','API\ServiceController@singleAttendance');
+    Route::post('attendance/single','API\AttendanceController@singleAttendance');
 
 
 
