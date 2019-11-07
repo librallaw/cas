@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-<<<<<<< HEAD
 use App\Imports\First_timersImport;
-=======
-use App\Imports\First_timerImport;
->>>>>>> 29d8ed4fa5edee77a1d6cf9462731d3daa3dde25
 use App\Members;
 
 use Illuminate\Http\Request;
@@ -96,11 +92,7 @@ class FirstTimersController extends Controller
             $path = $request->file('file')->getRealPath();
 
             //Excel::import(new CsvImport, request()->file('file'));
-<<<<<<< HEAD
             $import = new First_timersImport();
-=======
-            $import = new First_timerImport();
->>>>>>> 29d8ed4fa5edee77a1d6cf9462731d3daa3dde25
             $import->import(request()->file('file'));
 
             foreach ($import->failures() as $failure) {
