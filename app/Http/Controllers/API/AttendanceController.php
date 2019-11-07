@@ -47,8 +47,6 @@ class AttendanceController extends Controller
         }
 
 
-
-        //http://stackoverflow.com/questions/15485354/angular-http-post-to-php-and-undefined
         $username = $request->member_id;
 
         /* dd($_POST['username']);*/
@@ -206,6 +204,12 @@ class AttendanceController extends Controller
 
         }
 
+
+    }
+
+
+    public function singleAttendance()
+    {
 
     }
 
