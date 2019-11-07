@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 
 
-class First_timerImport implements ToModel,WithValidation, WithHeadingRow, SkipsOnFailure
+class First_timersImport implements ToModel,WithValidation, WithHeadingRow, SkipsOnFailure
 {
     use Importable,SkipsFailures;
 
@@ -62,7 +62,7 @@ class First_timerImport implements ToModel,WithValidation, WithHeadingRow, Skips
             'group_assigned'=>  'required',
             'home_address'  =>  'required|string',
             'church_id'     =>  'trim',
-            'first_timer'   =>  'trim'
+            'first_timer'   =>  'string'
         ];
     }
 
