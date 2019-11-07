@@ -13,9 +13,18 @@ class LeadersController extends Controller
 
         $leaders = Members::where('level', 1)->where("church_id",Auth::user()->unique_id)->get();
 
+        if(count($leaders) > 0)
+
         return response()->json([
             'status' => true,
             'data' => $leaders,
         ]);
+
+        else
+            return response()->json([
+                'status' => false,
+                'data' => $leaders,
+            ]);
+
     }
 }
