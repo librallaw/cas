@@ -129,16 +129,29 @@ class ServiceController extends Controller
 
     public function service_list() {
 
+        $services_arry = array();
+
         if(isset($_GET['num'])){
+
             $services   =  Service::where("church_id",Auth::user()->unique_id)->take($_GET['num'])->get();
         } else {
             $services   =  Service::where("church_id",Auth::user()->unique_id)->get();
         }
 
 
+
+
+        foreach ($services as $service){
+            $services_arry[] = array(
+                "service_date" => $service->service_date,
+                "attendance" => count($service->attendance),
+            );
+        }
+
+
         return response()->json([
             'status'    => true,
-            'data'      => $services
+            'data'      => $services_arry
         ]);
     }
 }

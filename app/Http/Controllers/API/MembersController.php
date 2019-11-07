@@ -236,7 +236,10 @@ class MembersController extends Controller
     public function groups(){
 
         $grp_array = array();
-        $a = Members::select('group_assigned')->where("church_id",Auth::user()->unique_id)->groupBy("group_assigned")->get();
+        $a = Members::select(['group_assigned','full_name'])->where("church_id",Auth::user()->unique_id)->groupBy
+        (['group_assigned','full_name'])->get();
+
+        dd($a);
 
 
         if($a){

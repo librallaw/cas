@@ -28,25 +28,22 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('details', 'API\UserController@details');
 
-    Route::post('members/create', 'API\MembersController@store');
 
-    Route::post('members/edit', 'API\MembersController@edit');
 
     Route::get('user/profile', 'AuthController@profile');
 
-    Route::post('members/bulkUpload','API\MembersController@bulkUpload');
 
-    Route::get('members/export','API\MembersController@export');
-
-    Route::get('members/lists', 'API\MembersController@lists');
 
     Route::get('service/service_list','API\ServiceController@service_list');
-
     Route::post('service/create','API\ServiceController@store');
 
     Route::post('attendance/create','API\AttendanceController@store');
 
-
+    Route::post('members/create', 'API\MembersController@store');
+    Route::post('members/edit', 'API\MembersController@edit');
+    Route::post('members/bulkUpload','API\MembersController@bulkUpload');
+    Route::get('members/export','API\MembersController@export');
+    Route::get('members/lists', 'API\MembersController@lists');
     Route::get('members/groups','API\MembersController@groups');
     Route::get('members/active','API\MembersController@active');
     Route::get('members/in_active','API\MembersController@in_active');
