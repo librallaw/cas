@@ -123,9 +123,7 @@ class AttendanceController extends Controller
 
                     $seeparated_date = explode("-", $date);
 
-
                     $attendee = new Attendance();
-
 
                     $attendee -> church_id    = Auth::user()->unique_id;
                     $attendee -> member_id    = $request -> member_id;
@@ -140,8 +138,6 @@ class AttendanceController extends Controller
                     $attendee->level = $user->level;
 
                     $attendee -> save();
-
-
 
                     return response()->json([
                         'status'=>true,
@@ -230,10 +226,9 @@ class AttendanceController extends Controller
         }
 
 
-
         $attendance = Attendance::where("church_id",Auth::user()->unique_id)->where('service_date',
             $request->service_date)
-            ->first();
+            ->get();
 
 
 
@@ -241,7 +236,7 @@ class AttendanceController extends Controller
 
             return response()->json([
                 'status' => true,
-                'data' => new SingleAttendanceResource($attendance),
+                'data' =>  SingleAttendanceResource::collection($attendance),
             ]);
 
         else
