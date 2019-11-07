@@ -141,9 +141,9 @@ class ServiceController extends Controller
 
         if(isset($_GET['num'])){
 
-            $services   =  Service::where("church_id",Auth::user()->unique_id)->take($_GET['num'])->get();
+            $services   =  Service::where("church_id",Auth::user()->unique_id)->take($_GET['num'])->latest()->get();
         } else {
-            $services   =  Service::where("church_id",Auth::user()->unique_id)->get();
+            $services   =  Service::where("church_id",Auth::user()->unique_id)->latest()->get();
         }
 
 
