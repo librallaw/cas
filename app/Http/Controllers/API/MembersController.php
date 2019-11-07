@@ -199,6 +199,8 @@ class MembersController extends Controller
            }
 
     }
+
+
     //This method fetch all members record from db
     public function lists() {
 
@@ -307,11 +309,7 @@ class MembersController extends Controller
             ]);
         }
 
-
-
     }
-
-
 
 
 

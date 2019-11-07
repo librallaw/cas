@@ -82,4 +82,33 @@ class FirstTimersController extends Controller
         }
 
     }
+
+    public function batchUpload(Request $request) {
+
+        if($request->hasFile('file')) {
+
+            $path = $request->file('file')->getRealPath();
+
+            //Excel::import(new CsvImport, request()->file('file'));
+            $import = new CsvImport();
+            $import->import(request()->file('file'));
+
+            foreach ($import->failures() as $failure) {
+                $failure->row(); // row that went wrong
+                $failure->attribute(); // either heading key (if using heading row concern) or column index
+                $failure->errors(); // Actual error messages from Laravel validator
+                $failure->values(); // The values of the row that has failed.
+            }
+
+            // dd($import);
+
+            return response()->json([
+                'status'    => true,
+                'message'   => "First timers Successfully uploaded.",
+            ]);
+        }
+
+    }
+
+
 }

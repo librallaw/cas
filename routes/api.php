@@ -45,7 +45,10 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('firsttimers/show','API\FirstTimersController@showFirstTimers');
     Route::get('firsttimers/add','API\FirstTimersController@createFirstTimers');
+    Route::get('firsttimers/batchUpload','API\FirstTimersController@createFirstTimers');
 
+
+    Route::get('attendance/attendees','API\AttendanceController@attendees');
 
     Route::post('attendance/create','API\AttendanceController@store');
     Route::get('attendance/last','API\ServiceController@lastService');

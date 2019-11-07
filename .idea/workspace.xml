@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3419e31f-61a1-43a3-8017-1d3497af3da4" name="Default Changelist" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/First_timers.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Imports/First_timersImport.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/FirstTimersController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/FirstTimersController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,17 +63,20 @@
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="595">
-              <caret line="52" column="81" lean-forward="true" selection-start-line="52" selection-start-column="81" selection-end-line="52" selection-end-column="81" />
-              <folding />
+              <caret line="55" column="81" lean-forward="true" selection-start-line="55" selection-start-column="81" selection-end-line="55" selection-end-column="81" />
+              <folding>
+                <marker date="1573127722266" expanded="true" signature="643:2112" ph="..." />
+                <marker date="1573127722266" expanded="true" signature="684:2111" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AttendanceController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AttendanceController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="239" column="47" lean-forward="false" selection-start-line="239" selection-start-column="47" selection-end-line="239" selection-end-column="47" />
+            <state relative-caret-position="401">
+              <caret line="183" column="27" lean-forward="true" selection-start-line="183" selection-start-column="27" selection-end-line="183" selection-end-column="27" />
               <folding>
                 <element signature="e#44#92#0#PHP" expanded="true" />
               </folding>
@@ -95,11 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServiceController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServiceController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="694">
-              <caret line="249" column="50" lean-forward="true" selection-start-line="249" selection-start-column="50" selection-end-line="249" selection-end-column="50" />
+            <state relative-caret-position="-835">
+              <caret line="165" column="0" lean-forward="false" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
               <folding>
                 <element signature="e#44#63#0#PHP" expanded="true" />
               </folding>
@@ -152,9 +161,9 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/LeadersController.php" />
         <option value="$PROJECT_DIR$/app/Attendance.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/SingleAttendanceResource.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" />
       </list>
     </option>
   </component>
@@ -523,12 +532,12 @@
       <option name="presentableId" value="Default" />
       <updated>1572987307475</updated>
       <workItem from="1572987309797" duration="7710000" />
-      <workItem from="1573056087480" duration="20021000" />
+      <workItem from="1573056087480" duration="20269000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27731000" />
+    <option name="totallyTimeSpent" value="27979000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
@@ -582,7 +591,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
           <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1573127722266" expanded="true" signature="643:2112" ph="..." />
+            <marker date="1573127722266" expanded="true" signature="684:2111" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -601,7 +613,7 @@
         <state relative-caret-position="3495">
           <caret line="243" column="35" lean-forward="true" selection-start-line="243" selection-start-column="35" selection-end-line="243" selection-end-column="35" />
           <folding>
-            <element signature="e#46#72#0#PHP" expanded="true" />
+            <element signature="e#46#72#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -684,7 +696,7 @@
         <state relative-caret-position="249">
           <caret line="51" column="20" lean-forward="false" selection-start-line="51" selection-start-column="4" selection-end-line="96" selection-end-column="5" />
           <folding>
-            <element signature="e#46#72#0#PHP" expanded="true" />
+            <element signature="e#46#72#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -724,8 +736,11 @@
     <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
-          <caret line="52" column="81" lean-forward="true" selection-start-line="52" selection-start-column="81" selection-end-line="52" selection-end-column="81" />
-          <folding />
+          <caret line="55" column="81" lean-forward="true" selection-start-line="55" selection-start-column="81" selection-end-line="55" selection-end-column="81" />
+          <folding>
+            <marker date="1573127722266" expanded="true" signature="643:2112" ph="..." />
+            <marker date="1573127722266" expanded="true" signature="684:2111" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -747,22 +762,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="239" column="47" lean-forward="false" selection-start-line="239" selection-start-column="47" selection-end-line="239" selection-end-column="47" />
+        <state relative-caret-position="-835">
+          <caret line="165" column="0" lean-forward="false" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
           <folding>
-            <element signature="e#44#92#0#PHP" expanded="true" />
+            <element signature="e#44#63#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="694">
-          <caret line="249" column="50" lean-forward="true" selection-start-line="249" selection-start-column="50" selection-end-line="249" selection-end-column="50" />
+        <state relative-caret-position="401">
+          <caret line="183" column="27" lean-forward="true" selection-start-line="183" selection-start-column="27" selection-end-line="183" selection-end-column="27" />
           <folding>
-            <element signature="e#44#63#0#PHP" expanded="true" />
+            <element signature="e#44#92#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

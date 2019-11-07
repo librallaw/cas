@@ -47,6 +47,7 @@ class ServiceController extends Controller
             $service = new Service();
             $service -> service_type  = $request -> service_type;
             $service -> church_id     = Auth::user()->unique_id;
+            $service -> member_id     = $request -> member_id;
             $service -> save();
 
             return response()->json([

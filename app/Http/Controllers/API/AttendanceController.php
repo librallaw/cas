@@ -166,47 +166,50 @@ class AttendanceController extends Controller
         //validate
         $validate = Validator::make($request->all(), [
 
-            'member_id'     => 'required',
+            'member_id' => 'required',
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
 
             return response()->json([
-                'status'=>false,
+                'status' => false,
                 'message' => 'Sorry your request could not be completed,please check the fields and try again',
-                'errors' =>$validate->errors()->all() ,
+                'errors' => $validate->errors()->all(),
             ], 401);
 
         } else {
 
-            $checker = Attendance::select('service_date')->where('church_id',Auth::user()->unique_id)->where('service_date',$request->service_date)->doesntExist();
+            $checker = Attendance::select('service_date')->where('church_id', Auth::user()->unique_id)->where('service_date', $request->service_date)->doesntExist();
 
-            if($checker) {
+            if ($checker) {
 
                 $attend = new Attendance();
-                $attend -> church_id    = Auth::user()->unique_id;
-                $attend -> member_id    = $request -> member_id;
-                $attend -> arrival_time = time();
-                $attend -> service_date = $request -> service_date;
-                $attend -> service_type = $request -> service_type;
-                $attend -> save();
+                $attend->church_id = Auth::user()->unique_id;
+                $attend->member_id = $request->member_id;
+                $attend->arrival_time = time();
+                $attend->service_date = $request->service_date;
+                $attend->service_type = $request->service_type;
+                $attend->save();
                 //dd($attend);
 
 
                 return response()->json([
-                    'status'    => true,
-                    'message'   => "Attendance created successfully",
-                    'attendance'    => $attend
+                    'status' => true,
+                    'message' => "Attendance created successfully",
+                    'attendance' => $attend
 
                 ]);
             }
 
-            return response()->json(['status'=> true, 'message'=>'Attendance already taken for this service date']);
+            return response()->json(['status' => true, 'message' => 'Attendance already taken for this service date']);
 
         }
 
 
     }
+
+
+
 
 
     public function singleAttendance(Request $request)
@@ -227,13 +230,14 @@ class AttendanceController extends Controller
         }
 
 
+
         $attendance = Attendance::where("church_id",Auth::user()->unique_id)->where('service_date',
             $request->service_date)
             ->first();
 
 
 
-        if(count($attendance) > 0)
+        if(!empty($attendance))
 
             return response()->json([
                 'status' => true,
