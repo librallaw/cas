@@ -46,12 +46,13 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('attendance/create','API\AttendanceController@store');
 
+
     Route::get('members/groups','API\MembersController@groups');
-
     Route::get('members/active','API\MembersController@active');
-
     Route::get('members/in_active','API\MembersController@in_active');
 
+    Route::get('firsttimers/show','API\FirstTimersController@showFirstTimers');
+    Route::get('firsttimers/add','API\FirstTimersController@createFirstTimers');
 
 
     Route::post('attendance/create','API\AttendanceController@store');

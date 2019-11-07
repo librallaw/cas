@@ -252,7 +252,8 @@ class MembersController extends Controller
         }else{
             return response()->json([
                 'status'    => false,
-                'message'   => 'No record found.'
+                'message'   => 'No record found.',
+                'data' => []
             ]);
         }
     }
@@ -289,13 +290,17 @@ class MembersController extends Controller
         } else{
             return response()->json([
                 'status'    => false,
-                'message'   => 'No active members found.'
+                'message'   => 'No active members found.',
+                'data' => []
             ]);
         }
 
 
 
     }
+
+
+
 
 
 }
