@@ -43,7 +43,7 @@ class First_timerImport implements ToModel,WithValidation, WithHeadingRow, Skips
             'group_assigned'=>  $row['group_assigned'],
             'home_address'  =>  $row['home_address'],
             'church_id'     =>  Auth::user()->unique_id,
-            'first_timer'   =>  Auth::members()->first_timer
+            'first_timer'   =>  1
 
         ]);
 
