@@ -18,6 +18,7 @@ class SingleAttendanceResource extends JsonResource
 
         'full_name' => $this->member->full_name,
         'member_id' => $this->member_id,
+        'phone_number' => $this->member->phone_number,
         'arrival_time' => $this->arrival_time,
         'group' => $this->group,
         'level' => $this->level,
