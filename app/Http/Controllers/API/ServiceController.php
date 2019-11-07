@@ -236,30 +236,28 @@ class ServiceController extends Controller
 
         foreach($service1_attend as $attendee){
 
-            if(empty($attendee->user->firstname)){
-                continue;
-            }
-
-            $service2  = Attendance::where('member_id',$attendee->user_id)->where("service_date",$services2)->get();
 
 
+
+            $service2  = Attendance::where('member_id',$attendee->member_id)->where("service_date",$services2)->get();
+
+
+
+            $result[$x]['member_id'] = $attendee->member_id;
+            $result[$x]['full_name'] = $attendee->member->full_name;
+            $result[$x]['group_assigned'] = $attendee->member->group_assigned;
+            $result[$x]['phone_number'] = $attendee->member->phone_number;
+            $result[$x]['email'] = $attendee->member->email;
+            $result[$x]['date'] = $services2;
             if(count($service2) > 0){
-                $result[$x]['member_id'] = $attendee->member_id;
-                $result[$x]['full_name'] = $attendee->member->full_name();
-                $result[$x]['group'] = $attendee->member->group;
-                $result[$x]['phone'] = $attendee->user->phone;
+
+
                 $result[$x]['status'] = "present";
-                $result[$x]['date'] = $services2;
                 $result[$x]['type'] = "success";
                 $present++;
             }else{
-                $result[$x]['user_id'] = $attendee->user_id;
-                $result[$x]['username'] = $attendee->user->full_name();
-                $result[$x]['group'] = $attendee->user->group;
-                $result[$x]['cell'] = $attendee->user->cell;
-                $result[$x]['phone'] = $attendee->user->phone;
+
                 $result[$x]['status'] = "absent";
-                $result[$x]['date'] = $services2;
                 $result[$x]['type'] = "danger";
                 $absentees ++;
             }
@@ -279,7 +277,11 @@ class ServiceController extends Controller
         $data['services1'] = $services1;
         $data['services2'] = $services2;
 
-        return view("admin.attendance.compare",$data);
+        return response()->json([
+            'status' => true,
+            'message' => "Success",
+            'data' =>$data
+        ],200);
 
 //        header("Content-Type: application/json");
 //        die(json_encode($result));exit;

@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('service/service_list','API\ServiceController@service_list');
     Route::post('service/create','API\ServiceController@store');
+    Route::post('service/compare','API\ServiceController@compareServices');
 
     Route::get('members/leaders','API\LeadersController@leaders');
     Route::post('members/create', 'API\MembersController@store');
