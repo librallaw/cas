@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3419e31f-61a1-43a3-8017-1d3497af3da4" name="Default Changelist" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -92,8 +88,8 @@
       <file leaf-file-name="MembersController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="241" column="15" lean-forward="true" selection-start-line="241" selection-start-column="15" selection-end-line="241" selection-end-column="15" />
+            <state relative-caret-position="510">
+              <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
               <folding>
                 <element signature="e#46#72#0#PHP" expanded="true" />
               </folding>
@@ -101,7 +97,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FirstTimersController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FirstTimersController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/FirstTimersController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
@@ -123,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServiceController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServiceController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="484">
@@ -153,10 +149,10 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/ServiceController.php" />
         <option value="$PROJECT_DIR$/app/Service.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/FirstTimersController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" />
       </list>
     </option>
   </component>
@@ -503,12 +499,12 @@
       <option name="presentableId" value="Default" />
       <updated>1572987307475</updated>
       <workItem from="1572987309797" duration="7710000" />
-      <workItem from="1573056087480" duration="12510000" />
+      <workItem from="1573056087480" duration="13281000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20220000" />
+    <option name="totallyTimeSpent" value="20991000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
@@ -661,31 +657,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/FirstTimersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
-          <folding>
-            <element signature="e#44#60#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/GroupController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="241" column="15" lean-forward="true" selection-start-line="241" selection-start-column="15" selection-end-line="241" selection-end-column="15" />
-          <folding>
-            <element signature="e#46#72#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -712,6 +688,26 @@
         <state relative-caret-position="484">
           <caret line="145" column="57" lean-forward="true" selection-start-line="145" selection-start-column="57" selection-end-line="145" selection-end-column="57" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+          <folding>
+            <element signature="e#46#72#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/FirstTimersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
+          <folding>
+            <element signature="e#44#60#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

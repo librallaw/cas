@@ -236,10 +236,10 @@ class MembersController extends Controller
     public function groups(){
 
         $grp_array = array();
+        $grp_array2 = array();
         $a = Members::select(['group_assigned','full_name'])->where("church_id",Auth::user()->unique_id)->groupBy
         (['group_assigned','full_name'])->get();
 
-        dd($a);
 
 
         if($a){
@@ -248,9 +248,18 @@ class MembersController extends Controller
                 $grp_array[] = $item->group_assigned;
             }
 
+
+            foreach ($grp_array as $grp) {
+                $grp_array2[] = array(
+                    'group' => $grp,
+                    'leader' => (Members::where("group_assigned",$grp)->where("level",1)->first() !=null?
+                        Members::where("group_assigned",$grp)->where("level",1)->first()->full_name : ""),
+                );
+            }
+
             return response()->json([
                 'status'    => true,
-                'data'      => $grp_array
+                'data'      => $grp_array2
             ]);
         }else{
             return response()->json([
