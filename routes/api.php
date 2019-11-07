@@ -28,17 +28,10 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('details', 'API\UserController@details');
 
-
-
     Route::get('user/profile', 'AuthController@profile');
-
-
 
     Route::get('service/service_list','API\ServiceController@service_list');
     Route::post('service/create','API\ServiceController@store');
-
-    Route::post('attendance/create','API\AttendanceController@store');
-
 
     Route::get('members/leaders','API\LeadersController@leaders');
     Route::post('members/create', 'API\MembersController@store');
@@ -56,6 +49,10 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('attendance/create','API\AttendanceController@store');
     Route::get('attendance/last','API\ServiceController@lastService');
+
+    Route::get('attendance/single','API\ServiceController@singleAttendance');
+
+
 
 
 

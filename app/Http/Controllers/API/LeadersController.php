@@ -23,6 +23,7 @@ class LeadersController extends Controller
         else
             return response()->json([
                 'status' => false,
+                'message' => "No leader found in your church",
                 'data' => $leaders,
             ]);
 

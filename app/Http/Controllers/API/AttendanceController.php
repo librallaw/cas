@@ -208,9 +208,40 @@ class AttendanceController extends Controller
     }
 
 
-    public function singleAttendance()
+    public function singleAttendance(Request $request)
     {
+        $validate = Validator::make($request->all(), [
 
+            'service_date'     => 'required',
+        ]);
+
+        if($validate->fails()){
+
+            return response()->json([
+                'status'=>false,
+                'message' => 'The date field is required',
+                'errors' =>$validate->errors()->all() ,
+            ], 401);
+
+        }
+
+
+        $attendance = Attendance::where("church_id",Auth::user()->unique_id)->where('service_date',$request->date)
+            ->get();
+
+        if(count($attendance) > 0)
+
+            return response()->json([
+                'status' => true,
+                'data' => $attendance,
+            ]);
+
+        else
+            return response()->json([
+                'status' => false,
+                'message' => "No Attendance found for the requested date",
+                'data' => $attendance,
+            ]);
     }
 
 
