@@ -243,10 +243,9 @@ class ServiceController extends Controller
 
 
             if(count($service2) > 0){
-                $result[$x]['user_id'] = $attendee->user_id;
-                $result[$x]['username'] = $attendee->user->full_name();
-                $result[$x]['group'] = $attendee->user->group;
-                $result[$x]['cell'] = $attendee->user->cell;
+                $result[$x]['member_id'] = $attendee->member_id;
+                $result[$x]['full_name'] = $attendee->member->full_name();
+                $result[$x]['group'] = $attendee->member->group;
                 $result[$x]['phone'] = $attendee->user->phone;
                 $result[$x]['status'] = "present";
                 $result[$x]['date'] = $services2;
