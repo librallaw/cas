@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Attendance;
 use Illuminate\Http\Request;
 use App\Service;
 use App\Http\Controllers\Controller;
@@ -61,6 +62,9 @@ class ServiceController extends Controller
 
     public function lastService()
     {
+
+
+
         $service = Service::where("church_id",Auth::user()->unique_id)->latest()->first();
 
 
@@ -130,6 +134,9 @@ class ServiceController extends Controller
 
     public function service_list() {
 
+
+
+
         $services_arry = array();
 
         if(isset($_GET['num'])){
@@ -154,6 +161,129 @@ class ServiceController extends Controller
             'status'    => true,
             'data'      => $services_arry
         ]);
+    }
+
+
+    public function compareServices(Request $request)
+    {
+
+        //Validate
+        $validate = Validator::make($request->all(), [
+            'service1' =>'required',
+            'service2' =>'required',
+        ]);
+
+        if($validate->fails()){
+
+            return response()->json([
+                'status' => false,
+                'message' => "All fields are required",
+                'errors' => $validate->errors()
+            ],401);
+
+        };
+
+
+        $services1 = $request->post("service1");
+        $services2 = $request->post("service2");
+
+
+
+        $service1_attend = Attendance::where("service_date",$services1)->where("church_id",Auth::user()->unique_id)
+            ->get();
+        $service2_attend = Attendance::where("service_date",$services2)->where("church_id",Auth::user()->unique_id)
+            ->get();
+
+        if($services1 == $services2){
+
+            return response()->json([
+                'status' => false,
+                'message' => "The same service cannot be compared, please select two different services",
+            ],301);
+
+           exit;
+        }
+
+        if(count($service1_attend) < 1){
+
+            return response()->json([
+                'status' => false,
+                'message' => $services1." has no attendee",
+            ],301);
+
+            exit;
+
+        }
+
+        if(count($service2_attend) < 1){
+
+            return response()->json([
+                'status' => false,
+                'message' => $services2." has no attendee",
+            ],301);
+
+            exit;
+        }
+
+
+        // dd($service1_attend);
+
+        $result = array();
+        $x = 0;
+        $absentees  = 0;
+        $present  = 0;
+
+
+        foreach($service1_attend as $attendee){
+
+            if(empty($attendee->user->firstname)){
+                continue;
+            }
+
+            $service2  = Attendance::where('member_id',$attendee->user_id)->where("service_date",$services2)->get();
+
+
+            if(count($service2) > 0){
+                $result[$x]['member_id'] = $attendee->member_id;
+                $result[$x]['full_name'] = $attendee->member->full_name();
+                $result[$x]['group'] = $attendee->member->group;
+                $result[$x]['phone'] = $attendee->user->phone;
+                $result[$x]['status'] = "present";
+                $result[$x]['date'] = $services2;
+                $result[$x]['type'] = "success";
+                $present++;
+            }else{
+                $result[$x]['user_id'] = $attendee->user_id;
+                $result[$x]['username'] = $attendee->user->full_name();
+                $result[$x]['group'] = $attendee->user->group;
+                $result[$x]['cell'] = $attendee->user->cell;
+                $result[$x]['phone'] = $attendee->user->phone;
+                $result[$x]['status'] = "absent";
+                $result[$x]['date'] = $services2;
+                $result[$x]['type'] = "danger";
+                $absentees ++;
+            }
+            $x++;
+        }
+
+
+
+//        header("Content-Type: application/json");
+//       die(json_encode($result));exit;
+        // dd($result);
+
+        $data['present'] = $present;
+        $data['absentees'] = $absentees;
+        $data['total'] = count($service1_attend);
+        $data['results'] = $result;
+        $data['services1'] = $services1;
+        $data['services2'] = $services2;
+
+        return view("admin.attendance.compare",$data);
+
+//        header("Content-Type: application/json");
+//        die(json_encode($result));exit;
+
     }
 
 
