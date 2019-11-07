@@ -62,6 +62,7 @@ class AttendanceController extends Controller
                  */
                 $check = Attendance::where('member_id', $username)
                     ->where('service_date', $date_form)
+                    ->where('church_id', Auth::user()->unique_id)
                     ->get();
 
 
@@ -90,7 +91,6 @@ class AttendanceController extends Controller
                     Check if user is in the same chuch
                      */
 
-                    dd(Auth::user());
 
                     if($user->church_id != Auth::user()->unique_id){
                         return response()->json([
@@ -128,7 +128,7 @@ class AttendanceController extends Controller
                     $attendee = new Attendance();
 
 
-                    $attendee -> church_id    = Auth::user()->id;
+                    $attendee -> church_id    = Auth::user()->unique_id;
                     $attendee -> member_id    = $request -> member_id;
                     $attendee -> arrival_time = time();
                     $attendee -> service_date = $date;

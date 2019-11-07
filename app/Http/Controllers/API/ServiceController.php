@@ -83,7 +83,8 @@ class ServiceController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => "No service found for this service",
-                'data' => []
+                'data' => [],
+                'attendance' => 0
             ]);
 
         }
