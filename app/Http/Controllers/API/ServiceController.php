@@ -58,6 +58,42 @@ class ServiceController extends Controller
 
     }
 
+
+    public function lastService()
+    {
+        $service = Service::where("church_id",Auth::user()->unique_id)->latest()->first();
+
+
+
+
+
+        if(count($service) > 0) {
+
+
+            return response()->json([
+                'status' => true,
+                'message' => "Successfully",
+                'data' => $service->attendance,
+                'attendance' => count($service->attendance)
+            ]);
+        }
+
+
+        else {
+
+            return response()->json([
+                'status' => true,
+                'message' => "No service found for this service",
+                'data' => [],
+                'attendance' => 0
+            ]);
+
+        }
+
+
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -94,16 +130,29 @@ class ServiceController extends Controller
 
     public function service_list() {
 
+        $services_arry = array();
+
         if(isset($_GET['num'])){
+
             $services   =  Service::where("church_id",Auth::user()->unique_id)->take($_GET['num'])->get();
         } else {
             $services   =  Service::where("church_id",Auth::user()->unique_id)->get();
         }
 
 
+
+
+        foreach ($services as $service){
+            $services_arry[] = array(
+                "service_date" => $service->service_date,
+                "attendance" => count($service->attendance),
+            );
+        }
+
+
         return response()->json([
             'status'    => true,
-            'data'      => $services
+            'data'      => $services_arry
         ]);
     }
 
