@@ -49,8 +49,6 @@ class CallListController extends Controller
 
 
 
-        return redirect('/call/group/'.$newGroup->id);
-
 
 
     }
@@ -196,11 +194,28 @@ class CallListController extends Controller
 
     public function showPersonnels()
     {
+
+
+        $personell = Personnel::where("church",Auth::user()->unique_id)->get();
+
+
+        if($personell->count() > 0)
+
         return response()->json([
             'status' => true,
-            "message"=>"Reports generated",
-            'data' => Personnel::all()
+            "message"=>"Prersonnel generated",
+            'data' => $personell
         ]);
+
+        else
+
+            return response()->json([
+                'status' => false,
+                "message"=>"You do not have any personnel in your church",
+                'data' => $personell
+            ]);
+
+
 
     }
 
