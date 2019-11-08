@@ -174,6 +174,8 @@ class AuthController extends Controller
         ]);
     }
 
+
+
     public function updatePassword(request $request){
 
         if (!(Hash::check($request->get('old_password'), Auth::user()->password))) {

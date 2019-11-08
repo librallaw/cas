@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
+Route::get('trackAttendance', 'AuthController@trackAttendance');
+
 
 Route::group(['middleware' => 'auth:api'], function(){
 
@@ -44,16 +46,21 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('members/in_active','API\MembersController@in_active');
 
     Route::get('firsttimers/show','API\FirstTimersController@showFirstTimers');
-    Route::get('firsttimers/add','API\FirstTimersController@createFirstTimers');
+    Route::post('firsttimers/add','API\FirstTimersController@createFirstTimers');
     Route::post('firsttimers/batchUpload','API\FirstTimersController@batchUpload');
+    Route::get('firsttimers/firstTimer_lists','API\FirstTimersController@firstTimer_lists');
 
 
     Route::get('attendance/attendees','API\AttendanceController@attendees');
+    Route::get('attendance/trackAttendance', 'API\AttendanceController@trackAttendance');
 
     Route::post('attendance/create','API\AttendanceController@store');
     Route::get('attendance/last','API\ServiceController@lastService');
 
     Route::post('attendance/single','API\AttendanceController@singleAttendance');
+
+
+    Route::post('calls/create','API\CallsController@store');
 
 
 

@@ -19,7 +19,8 @@ class Members extends Model
             'email',
             'marital_status',
             'group_assigned',
-            'home_address'
+            'home_address',
+            'first_timer'
     ];
 
 }

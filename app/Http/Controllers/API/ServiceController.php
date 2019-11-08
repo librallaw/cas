@@ -134,9 +134,6 @@ class ServiceController extends Controller
 
     public function service_list() {
 
-
-
-
         $services_arry = array();
 
         if(isset($_GET['num'])){

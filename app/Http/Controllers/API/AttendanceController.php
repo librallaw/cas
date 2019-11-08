@@ -253,6 +253,38 @@ class AttendanceController extends Controller
     }
 
 
+    public function trackAttendance(Request $request) {
+        $arr = array();
+
+        $lastServices = Attendance::where('church_id',Auth::user()->unique_id)->latest()->get();
+
+        if(count($lastServices) > 0) {
+
+            foreach($lastServices as $service) {
+
+                $member = $request->post('member_id');
+
+                $check = Attendance::where('service_date', $service->service_date)->where('member_id',$member)->first();
+
+                if(!empty($check))
+                {
+                    $arr[] = array(
+                        'service_date'  => $service->service_date,
+                        'status'    => "success",
+                        'data' => $arr
+                    );
+                } else {
+
+                    $arr[] = array(
+                        'service_date'  => $service->service_date,
+                        'status'    => "danger",
+                    );
+                }
+            }
+
+        }
+    }
+
 
     /**
      * Display the specified resource.

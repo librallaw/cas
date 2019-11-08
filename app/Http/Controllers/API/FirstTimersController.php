@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use Validator;
+
+
 class FirstTimersController extends Controller
 {
     //
@@ -23,7 +26,7 @@ class FirstTimersController extends Controller
                 'data'      => $first_timers
             ]);
 
-        } else{
+        } else  {
             return response()->json([
                 'status'    => false,
                 'message'   => 'No First timer found.',
@@ -102,11 +105,17 @@ class FirstTimersController extends Controller
                 $failure->values(); // The values of the row that has failed.
             }
 
-             dd($import);
+            //dd($failure->row());
 
             return response()->json([
                 'status'    => true,
                 'message'   => "First timers Successfully uploaded.",
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => "No record to upload.",
             ]);
         }
 
