@@ -103,7 +103,6 @@ class FirstTimersController extends Controller
                 $failure->values(); // The values of the row that has failed.
             }
 
-             dd($import);
 
             return response()->json([
                 'status'    => true,
