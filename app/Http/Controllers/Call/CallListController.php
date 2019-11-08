@@ -38,6 +38,17 @@ class CallListController extends Controller
 
         }
 
+
+
+
+        return response()->json([
+            'status' => true,
+            "message"=>"Personnel successfully created",
+            'data' => $newGroup->id
+        ]);
+
+
+
         return redirect('/call/group/'.$newGroup->id);
 
 
@@ -83,13 +94,23 @@ class CallListController extends Controller
      public function doCreatePersonnel(Request $request)
     {
 
-
-        $request-> validate([
-           'first_name' => 'required',
-           'last_name' => 'required',
-           'level' => 'required',
-           'email' => 'required|unique:personnels',
+        $validate = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'level' => 'required',
+            'email' => 'required|unique:personnels',
         ]);
+
+        if($validate->fails()){
+
+            return response()->json([
+                'status'=>false,
+                'message' => 'All fieds are required',
+                'errors' =>$validate->errors()->all() ,
+            ], 401);
+
+        }
+
 
         $personnel = new Personnel();
 
