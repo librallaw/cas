@@ -63,6 +63,16 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('attendance/single','API\AttendanceController@singleAttendance');
 
 
+    Route::post('/call/personnel/create', 'Call\CallListController@doCreatePersonnel')->name('doCreatePersonnel');
+    Route::get('git a', 'Call\CallListController@showPersonnels')->name('showPersonnels');
+
+
+    Route::post('/log/add/', 'Call\CallListController@addLog')->name('addLog');
+    Route::get('/call/list', 'Call\HomeController@showList')->name('showCallProfile');
+
+
+
+
     Route::post('calls/create','API\CallsController@store');
 
 
