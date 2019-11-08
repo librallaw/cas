@@ -4,7 +4,9 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Attendance;
 use App\Imports\CsvImport;
+use App\Service;
 use Illuminate\Http\Request;
 use App\Members;
 use App\Http\Controllers\Controller;
@@ -309,6 +311,94 @@ class MembersController extends Controller
             ]);
         }
 
+    }
+
+
+    public function memberTracking($user_id)
+    {
+
+        $services = Service::where("church_id",Auth::user()->unique_id)->latest()->take(15)->get();
+
+        if(count($services) > 0) {
+
+
+
+                $track = array();
+                $x = 0;
+                $present = 0;
+                $absent = 0;
+                foreach ($services as $service) {
+
+                    $serve = Attendance::where("member_id", $user_id)->where("service_date", $service->service_date)->get();
+
+                    $track[$x]['service_date'] = $service->service_date;
+
+                    if (count($serve) > 0) {
+                        $track[$x]['status'] = 1;
+                        $track[$x]['type'] = "success";
+                        $track[$x]['background'] = "green";
+                        $present++;
+                    } else {
+                        $track[$x]['status'] = 0;
+                        $track[$x]['type'] = "danger";
+                        $track[$x]['background'] = "red";
+                        $absent++;
+                    }
+
+                    $track[$x]['date'] = $service->date;
+
+                    $x++;
+                }
+
+                // dd($present);
+                $data['present'] = $present;
+                $data['absent'] = $absent;
+                $data['tracks'] = $track;
+                $data['user'] = Members::where('id', $user_id)->first();
+
+                return response()->json([
+
+                    'status' => true,
+                    "message" => "success",
+                    "data" => $data
+                ]);
+
+
+
+        }else{
+            return response()->json([
+
+                'status' => false,
+                "message" => "No service founnd in your account",
+                'data' => []
+            ]);
+        }
+
+    }
+
+
+    public function memberProfile($user_id)
+    {
+        $user = Members::where('id', $user_id)->where("church_id", Auth::user()->unique_id)->first();
+
+        if(!empty($user)) {
+
+            return response()->json([
+
+                'status' => true,
+                "message" => "success",
+                'data' => $user
+            ]);
+
+        }else{
+
+            return response()->json([
+
+                'status' => false,
+                "message" => "You are not authorized to access this resource",
+                'data' => $user
+            ]);
+        }
     }
 
 

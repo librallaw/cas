@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('service/service_list','API\ServiceController@service_list');
     Route::post('service/create','API\ServiceController@store');
+    Route::post('service/compare','API\ServiceController@compareServices');
 
     Route::get('members/leaders','API\LeadersController@leaders');
     Route::post('members/create', 'API\MembersController@store');
@@ -45,11 +46,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('members/active','API\MembersController@active');
     Route::get('members/in_active','API\MembersController@in_active');
 
+    Route::get('members/track/{member_id}','API\MembersController@memberTracking');
+    Route::get('members/profile/{member_id}','API\MembersController@memberProfile');
+
     Route::get('firsttimers/show','API\FirstTimersController@showFirstTimers');
     Route::post('firsttimers/add','API\FirstTimersController@createFirstTimers');
     Route::post('firsttimers/batchUpload','API\FirstTimersController@batchUpload');
     Route::get('firsttimers/firstTimer_lists','API\FirstTimersController@firstTimer_lists');
-
 
     Route::get('attendance/attendees','API\AttendanceController@attendees');
     Route::get('attendance/trackAttendance', 'API\AttendanceController@trackAttendance');
