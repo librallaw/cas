@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3419e31f-61a1-43a3-8017-1d3497af3da4" name="Default Changelist" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Resources/SingleAttendanceResource.php" afterPath="$PROJECT_DIR$/app/Http/Resources/SingleAttendanceResource.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="247">
-              <caret line="46" column="32" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="32" />
+              <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -86,11 +87,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SingleAttendanceResource.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MembersController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="529">
+              <caret line="393" column="0" lean-forward="true" selection-start-line="393" selection-start-column="0" selection-end-line="393" selection-end-column="0" />
+              <folding>
+                <element signature="e#46#65#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SingleAttendanceResource.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Resources/SingleAttendanceResource.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="54" lean-forward="true" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
+            <state relative-caret-position="465">
+              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -137,15 +150,15 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ServiceController.php" />
         <option value="$PROJECT_DIR$/app/Service.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/LeadersController.php" />
         <option value="$PROJECT_DIR$/app/Attendance.php" />
         <option value="$PROJECT_DIR$/app/Imports/First_timersImport.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/FirstTimersController.php" />
-        <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/ServiceController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/API/AttendanceController.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/SingleAttendanceResource.php" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php" />
       </list>
     </option>
   </component>
@@ -546,15 +559,15 @@
       <option name="presentableId" value="Default" />
       <updated>1572987307475</updated>
       <workItem from="1572987309797" duration="7710000" />
-      <workItem from="1573056087480" duration="27922000" />
+      <workItem from="1573056087480" duration="32131000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35632000" />
+    <option name="totallyTimeSpent" value="39841000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1200" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.259375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -624,7 +637,7 @@
         <state relative-caret-position="3495">
           <caret line="243" column="35" lean-forward="true" selection-start-line="243" selection-start-column="35" selection-end-line="243" selection-end-column="35" />
           <folding>
-            <element signature="e#46#72#0#PHP" expanded="false" />
+            <element signature="e#66#92#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -694,16 +707,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="51" column="20" lean-forward="false" selection-start-line="51" selection-start-column="4" selection-end-line="96" selection-end-column="5" />
-          <folding>
-            <element signature="e#46#72#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/LeadersController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -740,14 +743,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="46" column="32" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -790,9 +785,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Resources/SingleAttendanceResource.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="54" lean-forward="true" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
+        <state relative-caret-position="465">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/MembersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="393" column="0" lean-forward="true" selection-start-line="393" selection-start-column="0" selection-end-line="393" selection-end-column="0" />
+          <folding>
+            <element signature="e#46#65#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

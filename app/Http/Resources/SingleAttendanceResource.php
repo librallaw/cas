@@ -27,3 +27,5 @@ class SingleAttendanceResource extends JsonResource
     ];
     }
 }
+
+
