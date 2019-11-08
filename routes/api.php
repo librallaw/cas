@@ -45,11 +45,11 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('members/in_active','API\MembersController@in_active');
 
     Route::get('members/track/{member_id}','API\MembersController@memberTracking');
+    Route::get('members/profile/{member_id}','API\MembersController@memberProfile');
 
     Route::get('firsttimers/show','API\FirstTimersController@showFirstTimers');
     Route::get('firsttimers/add','API\FirstTimersController@createFirstTimers');
     Route::post('firsttimers/batchUpload','API\FirstTimersController@batchUpload');
-
 
     Route::get('attendance/attendees','API\AttendanceController@attendees');
 

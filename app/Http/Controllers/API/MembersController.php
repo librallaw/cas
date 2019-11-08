@@ -386,7 +386,7 @@ class MembersController extends Controller
             return response()->json([
 
                 'status' => false,
-                "message" => "No service founnd in your account",
+                "message" => "success",
                 'data' => $user
             ]);
 
