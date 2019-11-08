@@ -385,7 +385,7 @@ class MembersController extends Controller
 
             return response()->json([
 
-                'status' => false,
+                'status' => true,
                 "message" => "success",
                 'data' => $user
             ]);
