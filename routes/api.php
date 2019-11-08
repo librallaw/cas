@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
     Route::post('/call/personnel/create', 'Call\CallListController@doCreatePersonnel')->name('doCreatePersonnel');
-    Route::get('git a', 'Call\CallListController@showPersonnels')->name('showPersonnels');
+    Route::get('/call/personnel', 'Call\CallListController@showPersonnels')->name('showPersonnels');
 
 
     Route::post('/log/add/', 'Call\CallListController@addLog')->name('addLog');
