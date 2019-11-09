@@ -105,7 +105,7 @@ class CallListController extends Controller
             $data['group'] = $group;
             $data['members'] =  CallListResource::collection($calllist);
 
-            $data['personnels'] = Personnel::where("church",Auth::user()->unique_id)->get();
+            $data['personnels'] = Personnel::where("owner_id",Auth::user()->unique_id)->where("type","callcenter")->get();
 
             return response()->json([
                 'status' => true,
@@ -184,7 +184,7 @@ class CallListController extends Controller
         $personnel->email = $request->email;
         $personnel->password = Hash::make("123456");
         $personnel->type = "callcenter";
-        $personnel->church = Auth::user()->unique_id;
+        $personnel->owner_id = Auth::user()->unique_id;
 
         $personnel -> save();
 
@@ -263,7 +263,7 @@ class CallListController extends Controller
     {
 
 
-        $personell = Personnel::where("church",Auth::user()->unique_id)->get();
+        $personell = Personnel::where("owner_id",Auth::user()->unique_id)->where("type","callcenter")->get();
 
 
         if($personell->count() > 0)
