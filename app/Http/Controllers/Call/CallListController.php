@@ -177,14 +177,13 @@ class CallListController extends Controller
 
         }
 
-
         $personnel = new Personnel();
 
         $personnel->first_name = $request->first_name;
         $personnel->last_name = $request->last_name;
         $personnel->email = $request->email;
         $personnel->password = Hash::make("123456");
-        $personnel->level = $request->level;
+        $personnel->type = "callcenter";
         $personnel->church = Auth::user()->unique_id;
 
         $personnel -> save();

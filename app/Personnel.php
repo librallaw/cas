@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Personnel extends Model
 {
+
+    protected $table = "users";
     //
 
 //    public function getDateFormat()
