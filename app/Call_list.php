@@ -13,9 +13,9 @@ class Call_list extends Model
 //        return 'Y-m-d H:i:s.u';
 //    }
 
-    public function user()
+    public function member()
     {
-        return $this->hasOne("App\User",'id','user_id');
+        return $this->hasOne(Members::class,'id','member_id');
     }
 
     public function caller()

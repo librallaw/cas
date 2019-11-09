@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Call;
 use App\Call_group;
 use App\Call_list;
 use App\Call_log;
+use App\Http\Resources\CallListResource;
+use App\Http\Resources\SingleAttendanceResource;
 use App\Personnel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,14 +19,25 @@ class CallListController extends Controller
 
     public function createList(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' =>'required',
             'idds' => 'required'
         ]);
 
+        if($validator->fails()){
+            return response()->json([
+                'status'=>false,
+                'message' => 'Sorry your reqistration could not be completed',
+                'errors' =>$validator->errors()->all() ,
+            ], 401);
+
+            exit;
+        }
+
         $newGroup = new Call_group();
         $newGroup->name = $request->name;
         $newGroup->status = 1;
+        $newGroup->church_id = Auth::user()->unique_id;
         $newGroup->save();
 
         $idds = explode(',', $request->idds);
@@ -32,18 +45,16 @@ class CallListController extends Controller
         foreach ($idds as $idd){
 
             $call_list = new Call_list();
-            $call_list -> user_id = $idd;
+            $call_list -> member_id = $idd;
             $call_list -> call_group_id = $newGroup->id;
+            $call_list -> church_id = Auth::user()->unique_id;
             $call_list -> save();
 
         }
 
-
-
-
         return response()->json([
             'status' => true,
-            "message"=>"Personnel successfully created",
+            "message"=>"Call group successfully created",
             'data' => $newGroup->id
         ]);
 
@@ -56,33 +67,90 @@ class CallListController extends Controller
 
     public function showGroups()
     {
-        $data['callgroups'] = Call_group::orderBy('id','desc')->paginate(15);
-        return view("callcenter.callgroups",$data);
+
+        $callgroups = Call_group::where("church_id",Auth::user()->id)->orderBy('id','desc')->get();
+
+
+        if(count($callgroups) > 0){
+            return response()->json([
+                'status' => true,
+                "message"=>"Call group successfully returned",
+                'data' => $callgroups
+            ]);
+
+        }else{
+            return response()->json([
+                'status' => false,
+                "message"=>"No call group found in your church",
+                'data' => $callgroups
+            ]);
+        }
+
+
     }
 
 
     public function showList($groupid)
     {
-        $data['group'] = Call_group::find($groupid);
-        $data['members'] = Call_list::where('call_group_id',$groupid)->get();
 
-        $data['personnels'] = Personnel::all();
+        $group = Call_group::where("id",$groupid)->where("church_id",Auth::user()->unique_id)->first();
 
-        return view("callcenter.callList",$data);
+        if(!empty($group)){
+
+            $calllist  = Call_list::where('call_group_id',$groupid)->get();
+
+
+
+
+            $data['group'] = $group;
+            $data['members'] =  CallListResource::collection($calllist);
+
+            $data['personnels'] = Personnel::where("church",Auth::user()->id)->get();
+
+            return response()->json([
+                'status' => true,
+                "message"=>"Successfully loaded",
+                'data' => $data
+            ]);
+        }else{
+
+            return response()->json([
+                'status' => false,
+                "message"=>"You can ony view groups in your church",
+                'data' => $group
+            ]);
+        }
+
+
     }
 
 
     public function assignList(Request $request)
     {
-        $request->validate([
-           'idds' => 'required',
-           'personnel' => 'required',
+
+
+        $validator = Validator::make($request->all(), [
+            'idds' => 'required',
+            'personnel' => 'required',
         ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status'=>false,
+                'message' => 'Sorry your reqistration could not be completed',
+                'errors' =>$validator->errors()->all() ,
+            ], 401);
+        }
 
 
         $assign = Call_list::whereIn('id', $request->idds)->update(['personnel' => $request->personnel]);
 
-        return redirect()->back()->with("type","success")->with("message","Members successfully Assigned");
+
+        return response()->json([
+            'status'=>true,
+            'message' => 'Members successfully Assigned',
+        ], 401);
+
 
 
     }

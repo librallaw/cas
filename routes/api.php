@@ -66,16 +66,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/call/personnel/create', 'Call\CallListController@doCreatePersonnel')->name('doCreatePersonnel');
     Route::get('/call/personnel', 'Call\CallListController@showPersonnels')->name('showPersonnels');
 
+    Route::post('/call/create/group', 'Call\CallListController@createList')->name('createList');
+    Route::get('/call/groups', 'Call\CallListController@showGroups')->name('showGroups');
 
     Route::post('/log/add/', 'Call\CallListController@addLog')->name('addLog');
     Route::get('/call/list', 'Call\HomeController@showList')->name('showCallProfile');
 
-
-    Route::post('/call/add', 'Call\CallListController@createList')->name('createList');
-    Route::get('/call/group', 'Call\CallListController@showGroups')->name('showGroups');
-
-
-
+    Route::get('/call/group/{id}', 'Call\CallListController@showList')->name('showList');
 
     Route::post('calls/create','API\CallsController@store');
 
