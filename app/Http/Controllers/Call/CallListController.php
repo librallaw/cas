@@ -40,7 +40,7 @@ class CallListController extends Controller
         $newGroup->church_id = Auth::user()->unique_id;
         $newGroup->save();
 
-        $idds = explode(',', $request->idds);
+        $idds = $request->idds;
 
         foreach ($idds as $idd){
 
@@ -68,7 +68,7 @@ class CallListController extends Controller
     public function showGroups()
     {
 
-        $callgroups = Call_group::where("church_id",Auth::user()->id)->orderBy('id','desc')->get();
+        $callgroups = Call_group::where("church_id",Auth::user()->unique_id)->orderBy('id','desc')->get();
 
 
         if(count($callgroups) > 0){

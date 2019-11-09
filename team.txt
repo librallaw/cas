@@ -1,0 +1,76 @@
+GuzzleHttp\Exception\ServerException thrown with message "Server error: `POST http://cam.loveworldapis.com/api/call/create/group` resulted in a `500 Internal Server Error` response:
+<!DOCTYPE html><!--
+
+
+ErrorException: explode() expects parameter 2 to be string, array given in file /home/churchattend (truncated...)
+"
+
+Stacktrace:
+#67 GuzzleHttp\Exception\ServerException in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/guzzle/src/Exception/RequestException.php:113
+#66 GuzzleHttp\Exception\RequestException:create in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/guzzle/src/Middleware.php:65
+#65 GuzzleHttp\Middleware:GuzzleHttp\{closure} in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:203
+#64 GuzzleHttp\Promise\Promise:callHandler in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:156
+#63 GuzzleHttp\Promise\Promise:GuzzleHttp\Promise\{closure} in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/TaskQueue.php:47
+#62 GuzzleHttp\Promise\TaskQueue:run in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:246
+#61 GuzzleHttp\Promise\Promise:invokeWaitFn in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:223
+#60 GuzzleHttp\Promise\Promise:waitIfPending in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:267
+#59 GuzzleHttp\Promise\Promise:invokeWaitList in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:225
+#58 GuzzleHttp\Promise\Promise:waitIfPending in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:62
+#57 GuzzleHttp\Promise\Promise:wait in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/guzzle/src/Client.php:131
+#56 GuzzleHttp\Client:request in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/guzzle/src/Client.php:89
+#55 GuzzleHttp\Client:__call in /Users/XYZoe/Sites/cas/app/Libraries/Messenger.php:35
+#54 App\Libraries\Messenger:postApi in /Users/XYZoe/Sites/cas/app/Http/Controllers/CallCenterController.php:80
+#53 App\Http\Controllers\CallCenterController:createList in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:54
+#52 call_user_func_array in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:54
+#51 Illuminate\Routing\Controller:callAction in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php:45
+#50 Illuminate\Routing\ControllerDispatcher:dispatch in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Route.php:219
+#49 Illuminate\Routing\Route:runController in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Route.php:176
+#48 Illuminate\Routing\Route:run in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Router.php:680
+#47 Illuminate\Routing\Router:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:30
+#46 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/app/Http/Middleware/CheckAuth.php:24
+#45 App\Http\Middleware\CheckAuth:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#44 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#43 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php:41
+#42 Illuminate\Routing\Middleware\SubstituteBindings:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#41 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#40 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php:75
+#39 Illuminate\Foundation\Http\Middleware\VerifyCsrfToken:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#38 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#37 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php:49
+#36 Illuminate\View\Middleware\ShareErrorsFromSession:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#35 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#34 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php:56
+#33 Illuminate\Session\Middleware\StartSession:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#32 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#31 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php:37
+#30 Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#29 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#28 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php:66
+#27 Illuminate\Cookie\Middleware\EncryptCookies:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#26 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#25 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:104
+#24 Illuminate\Pipeline\Pipeline:then in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Router.php:682
+#23 Illuminate\Routing\Router:runRouteWithinStack in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Router.php:657
+#22 Illuminate\Routing\Router:runRoute in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Router.php:623
+#21 Illuminate\Routing\Router:dispatchToRoute in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Router.php:612
+#20 Illuminate\Routing\Router:dispatch in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php:176
+#19 Illuminate\Foundation\Http\Kernel:Illuminate\Foundation\Http\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:30
+#18 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php:21
+#17 Illuminate\Foundation\Http\Middleware\TransformsRequest:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#16 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#15 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php:21
+#14 Illuminate\Foundation\Http\Middleware\TransformsRequest:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#13 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#12 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php:27
+#11 Illuminate\Foundation\Http\Middleware\ValidatePostSize:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#10 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#9 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php:62
+#8 Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#7 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#6 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/fideloper/proxy/src/TrustProxies.php:57
+#5 Fideloper\Proxy\TrustProxies:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
+#4 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
+#3 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:104
+#2 Illuminate\Pipeline\Pipeline:then in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php:151
+#1 Illuminate\Foundation\Http\Kernel:sendRequestThroughRouter in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php:116
+#0 Illuminate\Foundation\Http\Kernel:handle in /Users/XYZoe/Sites/cas/public/index.php:55
