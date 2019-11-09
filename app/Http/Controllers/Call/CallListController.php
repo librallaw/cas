@@ -105,7 +105,7 @@ class CallListController extends Controller
             $data['group'] = $group;
             $data['members'] =  CallListResource::collection($calllist);
 
-            $data['personnels'] = Personnel::where("church",Auth::user()->id)->get();
+            $data['personnels'] = Personnel::where("church",Auth::user()->unique_id)->get();
 
             return response()->json([
                 'status' => true,
