@@ -76,6 +76,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('calls/create','API\CallsController@store');
 
+    Route::post('calls/list/assign','API\CallsController@assignList')->name("assignList");
+
 
 
 });

@@ -8,6 +8,7 @@ use App\Call_log;
 use App\Http\Resources\CallListResource;
 use App\Http\Resources\SingleAttendanceResource;
 use App\Personnel;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -134,22 +135,38 @@ class CallListController extends Controller
             'personnel' => 'required',
         ]);
 
+
         if($validator->fails()){
             return response()->json([
                 'status'=>false,
-                'message' => 'Sorry your reqistration could not be completed',
+                'message' => 'All fields are required',
                 'errors' =>$validator->errors()->all() ,
             ], 401);
         }
 
+        $check = User::where("id",$request->personnel)->where("owner_id",Auth::user()->unique_id)->first();
 
-        $assign = Call_list::whereIn('id', $request->idds)->update(['personnel' => $request->personnel]);
+        if(!empty($check)){
+
+            $assign = Call_list::whereIn('id', $request->idds)->update(['personnel' => $request->personnel]);
 
 
-        return response()->json([
-            'status'=>true,
-            'message' => 'Members successfully Assigned',
-        ], 401);
+            return response()->json([
+                'status'=>true,
+                'message' => 'Members successfully Assigned',
+            ] );
+
+        }else{
+
+
+            return response()->json([
+                'status'=>false,
+                'message' => 'You can only assign personnel in your church',
+            ] );
+        }
+
+
+
 
 
 
