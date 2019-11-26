@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
-class AuthController extends Controller
+class Auth2Controller extends Controller
 {
     //
 
@@ -69,6 +69,8 @@ class AuthController extends Controller
 
 
     public function login(Request $request){
+
+
 
         $validator = Validator::make($request->all(), [
             'email'     => 'required|string|email',

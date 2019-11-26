@@ -143,16 +143,17 @@ class ServiceController extends Controller
             $services   =  Service::where("church_id",Auth::user()->unique_id)->latest()->get();
         }
 
-
-
-
         foreach ($services as $service){
+
             $services_arry[] = array(
+
                 "service_date" => $service->service_date,
                 "attendance" => count($service->attendance),
-            );
-        }
+                "absentees_count" => $service->absentees_count,
 
+            );
+
+        }
 
         return response()->json([
             'status'    => true,
@@ -282,6 +283,51 @@ class ServiceController extends Controller
 
 //        header("Content-Type: application/json");
 //        die(json_encode($result));exit;
+
+    }
+
+
+    public function cumulativeMonthlyAttendance()
+    {
+        if(isset($_GET['year'])){
+            if(!empty($_GET['year'])){
+                $year = $_GET['year'];
+            }else{
+                $year = date("Y");
+            }
+        }else{
+            $year = date("Y");
+        }
+
+        $data["jan"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",01)->where("year",$year)->get()->count();
+        $data["feb"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",02)->where("year",$year)->get()->count();
+        $data["mar"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",03)->where("year",$year)->get()->count();
+
+
+        $data["apr"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",04)->where("year",$year)->get()->count();
+
+        $data["may"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",05)->where("year",$year)->get()->count();
+        $data["jun"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",06)->where("year",$year)->get()->count();
+        $data["jul"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",07)->where("year",$year)->get()->count();
+
+        $data["aug"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month","08")->where("year",$year)->get()->count();
+
+        $data["sep"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month","09")->where("year",$year)->get()->count();
+
+        $data["oct"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",10)->where("year",$year)->get()->count();
+
+        $data["nov"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",11)->where("year",$year)->get()->count();
+
+        $data["dec"] = Attendance::where("church_id",Auth::user()->unique_id)->where("month",12)->where("year",$year)->get()->count();
+
+
+        return response()->json([
+            "status" => true,
+            "message" => "success",
+            "data" => $data
+        ]);
+
+
 
     }
 

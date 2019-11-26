@@ -13,9 +13,9 @@ class Call_log extends Model
 //        return 'Y-m-d H:i:s.u';
 //    }
 
-    public function user()
+    public function member()
     {
-        return $this->hasOne("App\User",'id','user_id');
+        return $this->hasOne("App\User",'id','member_id');
     }
 
 
