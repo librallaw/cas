@@ -20,7 +20,6 @@ class PaymentController extends Controller
 
 
 
-
         $curl = curl_init();
         $reference = isset($_GET['reference']) ? $_GET['reference'] : '';
         if (!$reference) {
@@ -66,27 +65,56 @@ class PaymentController extends Controller
             $reference2 = Payment::where('reference',$unique_id)->first();
 
 
-            if(count($reference2) < 1){
-
-                die("Reference does not exist");
-
-            }
-
             //Check if value has already been given to the user
-            if(!empty($reference2->gateway_response)){
-                //  dd($reference2->status);
+            if(count($reference2) > 0){
 
-                die("Value already given for thus transaction");
+                return response()->json([
+                    'status' => false,
+                    'message' => "Value already given for thus transaction"
+                ],400);
+
 
             }
 
-            $per_credit = 10;
-
-            $amount = $request -> amount;
-
+            $credit = $request -> credit;
+            $type = $request -> type;
 
 
-            $activi = OrderItem::whereIn('id', $items_array)->update(['status' => 1]);
+            //check for the amount of credit for package
+            $money_payed = $tranx->data->amount;
+
+            switch ($type){
+                case emcr: $per_credit = 10;
+                break;
+
+                case smscr: $per_credit = 5;
+                    break;
+
+                case calcr: $per_credit = 5;
+                    break;
+
+            }
+
+
+            $legal_credit = $money_payed / $per_credit;
+
+
+            //check for fradulent transaction
+
+            if($legal_credit != $credit){
+
+                return response()->json([
+                    'status' => true,
+                    'message' => "There is an issue with your transaction code: 9821"
+                ]);
+            }else{
+
+                //credit the user
+
+                echo "we are ready to credit you";
+            }
+
+
 
 
             return response()->json([
