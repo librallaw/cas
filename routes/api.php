@@ -24,6 +24,8 @@ Route::post('register', 'Auth2Controller@register');
 Route::get('trackAttendance', 'Auth2Controller@trackAttendance');
 Route::post("data/services/auth",'API\DataCaptringController@auth')->name("dataAuth");
 
+Route::get('profile/edit', 'AuthController@editProfile');
+
 
 Route::group(['middleware' => 'auth:api'], function(){
 

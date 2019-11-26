@@ -230,8 +230,6 @@ class AttendanceController extends Controller
             $request->service_date)
             ->get();
 
-
-
         if(!empty($attendance))
 
             return response()->json([
@@ -279,6 +277,8 @@ class AttendanceController extends Controller
 
         }
     }
+
+
 
 
     /**
