@@ -186,10 +186,9 @@ class ServiceController extends Controller
 
 
 
-        $service1_attend = Attendance::where("service_date",$services1)->where("church_id",Auth::user()->unique_id)
-            ->get();
-        $service2_attend = Attendance::where("service_date",$services2)->where("church_id",Auth::user()->unique_id)
-            ->get();
+        $service1_attend = Attendance::where("service_date",$services1)->where("church_id",Auth::user()->unique_id)->get();
+
+        $service2_attend = Attendance::where("service_date",$services2)->where("church_id",Auth::user()->unique_id)->get();
 
         if($services1 == $services2){
 
@@ -240,45 +239,45 @@ class ServiceController extends Controller
 
 
 
-            $result[$x]['member_id'] = $attendee->member_id;
-            $result[$x]['full_name'] = $attendee->member->full_name;
+            $result[$x]['member_id']      = $attendee->member_id;
+            $result[$x]['full_name']      = $attendee->member->full_name;
             $result[$x]['group_assigned'] = $attendee->member->group_assigned;
-            $result[$x]['phone_number'] = $attendee->member->phone_number;
-            $result[$x]['email'] = $attendee->member->email;
-            $result[$x]['date'] = $services2;
-            if(count($service2) > 0){
+            $result[$x]['phone_number']   = $attendee->member->phone_number;
+            $result[$x]['email']          = $attendee->member->email;
+            $result[$x]['date']           = $services2;
 
+            if(count($service2) > 0){
 
                 $result[$x]['status'] = "present";
                 $result[$x]['type'] = "success";
                 $present++;
-            }else{
 
+            } else {
                 $result[$x]['status'] = "absent";
                 $result[$x]['type'] = "danger";
                 $absentees ++;
             }
+
             $x++;
         }
-
-
 
 //        header("Content-Type: application/json");
 //       die(json_encode($result));exit;
         // dd($result);
 
-        $data['present'] = $present;
-        $data['absentees'] = $absentees;
-        $data['total'] = count($service1_attend);
-        $data['results'] = $result;
-        $data['services1'] = $services1;
-        $data['services2'] = $services2;
+        $data['present']     = $present;
+        $data['absentees']   = $absentees;
+        $data['total']       = count($service1_attend);
+        $data['results']     = $result;
+        $data['services1']   = $services1;
+        $data['services2']   = $services2;
 
         return response()->json([
             'status' => true,
             'message' => "Success",
             'data' =>$data
         ],200);
+
 
 //        header("Content-Type: application/json");
 //        die(json_encode($result));exit;

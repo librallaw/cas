@@ -23,6 +23,8 @@ Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::get('trackAttendance', 'AuthController@trackAttendance');
 
+Route::get('profile/edit', 'AuthController@editProfile');
+
 
 Route::group(['middleware' => 'auth:api'], function(){
 

@@ -139,6 +139,8 @@ class MembersController extends Controller
        // dd($member);
     }
 
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -400,6 +402,42 @@ class MembersController extends Controller
             ]);
         }
     }
+
+    public function editProfile(Request $request){
+
+        $request->validate([
+            'title'             => 'required',
+            'full_name'         => 'required',
+            'gender'            => 'required',
+            'birth_date'        => 'required',
+            'phone_number'      => 'required',
+            'email'             => 'required|email:unique:users',
+            'marital_status'    => 'required',
+            'group_assigned'    => 'required',
+            'home_address'      => 'required'
+        ]);
+
+        $mem_id = $_POST['id'];
+        $member = Members::find($mem_id);
+        $member -> title            = $request->get('title');
+        $member -> full_name        = $request->get('full_name');
+        $member -> gender           = $request->get('gender');
+        $member -> birth_date       = $request->get('birth_date');
+        $member -> phone_number     = $request->get('phone_number');
+        $member -> email            = $request->get('email');
+        $member -> marital_status   = $request->get('marital_status');
+        $member -> group_assigned   = $request->get('group_assigned');
+        $member -> home_address     = $request->get('home_address');
+        $member -> save();
+
+        return response()->json([
+            'status'    => true,
+            'message'   => 'Profile successfully updated'
+        ]);
+
+    }
+
+
 
 
 

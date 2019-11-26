@@ -12,6 +12,12 @@ class AuthController extends Controller
 {
     //
 
+    /**
+     * Register api
+     *
+     * @return \Illuminate\Http\Response
+     */
+
     public function register(Request $request)
     {
 
@@ -67,6 +73,13 @@ class AuthController extends Controller
         ], 201);
     }
 
+
+
+    /**
+     * Login api
+     *
+     * @return \Illuminate\Http\Response
+     */
 
     public function login(Request $request){
 
@@ -166,6 +179,12 @@ class AuthController extends Controller
         return response()->json(['success' => $user], $this-> successStatus);
     }
 
+    /**
+     * profile api
+     *
+     * @return \Illuminate\Http\Response
+     */
+
     public function profile()
     {
         return response()->json([
@@ -174,27 +193,32 @@ class AuthController extends Controller
         ]);
     }
 
+    public function editProfile(User $user)
+    {
+        $user = Auth::user();
+        return view('users.edit', compact('user'));
+    }
 
 
-    public function updatePassword(request $request){
 
-        if (!(Hash::check($request->get('old_password'), Auth::user()->password))) {
 
-            return response()->json(['errors' => ['current'=> ['Current password does not match']]], 422);
-        }
+    /**
+     * updatePassword api
+     *
+     * @return \Illuminate\Http\Response
+     */
 
-        if(strcmp($request->get('old_password'), $request->get('new_password')) == 0){
+    public function updatePassword(User $user){
 
-            return response()->json(['errors' => ['current'=> ['New Password cannot be same as your current password']]], 422);
-        }
-        $validatedData = $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|string|min:6|confirmed',
+        $this->validate(request(),[
+            'full_name'   =>    'required',
+            'email'       =>    'required|email|unique:users',
+            'password'    =>    'required|min:6|confirmed'
         ]);
-        //Change Password
-        $user = Auth::User();
-        $user->password = Hash::make($request->get('new_password'));
 
+        $user -> full_name  = request('full_name');
+        $user -> email      = request('email');
+        $user -> password   = bcrypt(request('password'));
         $user->save();
 
         return response()->json([
@@ -203,4 +227,5 @@ class AuthController extends Controller
             'message'   => 'Password updated successfully'
         ]);
     }
+
 }

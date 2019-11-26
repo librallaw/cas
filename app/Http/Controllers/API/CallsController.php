@@ -45,7 +45,7 @@ class CallsController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name'        => 'required',
             'last_name'         => 'required',
-            'email'         => 'required|email|unique:users',
+            'email'             => 'required|email|unique:users',
             'church_name'       => 'required',
         ]);
         if($validator->fails()){
