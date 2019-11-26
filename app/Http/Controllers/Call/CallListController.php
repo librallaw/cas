@@ -6,6 +6,7 @@ use App\Call_group;
 use App\Call_list;
 use App\Call_log;
 use App\Http\Resources\CallListResource;
+use App\Http\Resources\CallLogResource;
 use App\Http\Resources\SingleAttendanceResource;
 use App\Personnel;
 use App\User;
@@ -99,9 +100,6 @@ class CallListController extends Controller
         if(!empty($group)){
 
             $calllist  = Call_list::where('call_group_id',$groupid)->get();
-
-
-
 
             $data['group'] = $group;
             $data['members'] =  CallListResource::collection($calllist);
@@ -218,6 +216,7 @@ class CallListController extends Controller
 
     public function addLog(Request $request)
     {
+
         $request->validate([
             'member_id' =>'required',
             'personnel' => 'required',
@@ -231,7 +230,7 @@ class CallListController extends Controller
 
         $newlog = new Call_log();
 
-        $newlog->user_id = $request->user_id;
+        $newlog->member_id = $request->member_id;
         $newlog->personnel = $request->personnel;
         $newlog->comment = $request->comment;
         $newlog->call_group_id = $request->call_group;
@@ -246,7 +245,49 @@ class CallListController extends Controller
         $call_group -> save();
 
 
+        return response()->json([
+            'status' => true,
+            "message"=> "Report successfully logged",
+            'data' => $newlog
+        ]);
+
+
     }
+
+
+
+    public function viewMemberCallLogs(Request $request)
+    {
+
+        $request->validate([
+            'member_id' =>'required',
+        ]);
+
+        $call_log = Call_log::where("member_id",$request->member_id)->latest()->get();
+
+        if($call_log ->count() > 0){
+
+            return response()->json([
+                'status' => true,
+                "message"=> "Log(s) found",
+                'data' => CallLogResource::collection($call_log)
+            ]);
+
+        }else{
+
+            return response()->json([
+                'status' => false,
+                "message"=> "No log(s) found",
+                'data' => $call_log
+            ]);
+        }
+
+
+
+
+    }
+
+
 
 
     public function callReports($group_id)
@@ -333,6 +374,39 @@ class CallListController extends Controller
 
 
         return redirect()->back()->with("type","success")->with("message","Personnel successfully Altered");
+
+    }
+
+
+
+    public function callerList()
+    {
+        $activegroup = Call_group::where('status',1)->where("church_id",Auth::user()->owner_id)->get()->last();
+
+        if(!empty($activegroup)){
+
+            $data['call_list'] = CallListResource::collection(Call_list::where("personnel",Auth::user()->id)
+                ->where('call_group_id',$activegroup->id)
+                ->get());
+
+            $data['call_group'] = $activegroup;
+
+
+            return response()->json([
+                'status' => true,
+                "message"=>"Success",
+                'data' => $data
+            ]);
+        }else{
+
+            return response()->json([
+                'status' => false,
+                "message"=>"Group does not exist",
+            ]);
+        }
+
+
+
 
     }
 }

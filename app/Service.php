@@ -15,6 +15,6 @@ class Service extends Model
 
     public function attendance()
     {
-       return $this->hasMany(Service::class,'service_date','service_date');
+       return $this->hasMany(Attendance::class,'service_date','service_date');
     }
 }

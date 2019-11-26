@@ -20,6 +20,6 @@ class Call_list extends Model
 
     public function caller()
     {
-        return $this->hasOne("App\Personnel",'id','personnel');
+        return $this->hasOne(User::class,'id','personnel');
     }
 }

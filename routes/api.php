@@ -19,9 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::post('login', 'AuthController@login');
-Route::post('register', 'AuthController@register');
-Route::get('trackAttendance', 'AuthController@trackAttendance');
+Route::post('login', 'Auth2Controller@login');
+Route::post('register', 'Auth2Controller@register');
+Route::get('trackAttendance', 'Auth2Controller@trackAttendance');
+Route::post("data/services/auth",'API\DataCaptringController@auth')->name("dataAuth");
 
 Route::get('profile/edit', 'AuthController@editProfile');
 
@@ -32,11 +33,12 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('details', 'API\UserController@details');
 
-    Route::get('user/profile', 'AuthController@profile');
+    Route::get('user/profile', 'Auth2Controller@profile');
 
     Route::get('service/service_list','API\ServiceController@service_list');
     Route::post('service/create','API\ServiceController@store');
     Route::post('service/compare','API\ServiceController@compareServices');
+    Route::get('service/monthly/cummulative','API\ServiceController@cumulativeMonthlyAttendance');
 
     Route::get('members/leaders','API\LeadersController@leaders');
     Route::post('members/create', 'API\MembersController@store');
@@ -58,27 +60,31 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('attendance/attendees','API\AttendanceController@attendees');
     Route::get('attendance/trackAttendance', 'API\AttendanceController@trackAttendance');
-
     Route::post('attendance/create','API\AttendanceController@store');
     Route::get('attendance/last','API\ServiceController@lastService');
-
     Route::post('attendance/single','API\AttendanceController@singleAttendance');
 
+    Route::post('/log/add/', 'Call\CallListController@addLog')->name('addLog');
+
+    Route::post('calls/create','Call\CallListController@store');
+    Route::post('calls/list/assign','Call\CallListController@assignList')->name("assignList");
 
     Route::post('/call/personnel/create', 'Call\CallListController@doCreatePersonnel')->name('doCreatePersonnel');
     Route::get('/call/personnel', 'Call\CallListController@showPersonnels')->name('showPersonnels');
-
     Route::post('/call/create/group', 'Call\CallListController@createList')->name('createList');
     Route::get('/call/groups', 'Call\CallListController@showGroups')->name('showGroups');
-
-    Route::post('/log/add/', 'Call\CallListController@addLog')->name('addLog');
     Route::get('/call/list', 'Call\HomeController@showList')->name('showCallProfile');
-
     Route::get('/call/group/{id}', 'Call\CallListController@showList')->name('showList');
+    Route::get("/call/personnel/assignedlist",'Call\CallListController@callerList')->name("callerList");
+    Route::post("/call/log/add",'Call\CallListController@addLog')->name("addLog");
+    Route::post("/call/log/view",'Call\CallListController@viewMemberCallLogs')->name("viewMemberCallLogs");
 
-    Route::post('calls/create','API\CallsController@store');
+    Route::get("/absentees/generate/{date}",'API\AbsenteesController@generateAbsentees')->name("generateAbsentees");
+    Route::post("/absentees/services/mulitiple",'API\AbsenteesController@generateMultipleAbsentees')->name("generateMultipleAbsentees");
 
-    Route::post('calls/list/assign','API\CallsController@assignList')->name("assignList");
+
+
+
 
 
 
