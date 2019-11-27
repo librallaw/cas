@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Credit;
 use App\Model\Cart;
 use App\Model\Order;
 use App\Model\OrderItem;
+use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Controller;
 
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -21,7 +24,7 @@ class PaymentController extends Controller
 
 
         $curl = curl_init();
-        $reference = isset($_GET['reference']) ? $_GET['reference'] : '';
+        $reference = isset($_POST['reference']) ? $_POST['reference'] : '';
         if (!$reference) {
             die('No reference supplied');
         }
@@ -76,38 +79,72 @@ class PaymentController extends Controller
 
             }
 
-            $credit = $request -> credit;
+            $credit = $request -> amount;
             $type = $request -> type;
 
 
-            //check for the amount of credit for package
-            $money_payed = $tranx->data->amount;
+            //check for the amount of credit for package and convert from kobo to Naira
+            $money_payed = $tranx->data->amount / 100;
 
             switch ($type){
-                case emcr: $per_credit = 10;
+
+                case "emcr":
+                    $per_credit = 10;
                 break;
 
-                case smscr: $per_credit = 5;
+                case "smscr":
+                    $per_credit = 2;
                     break;
 
-                case calcr: $per_credit = 5;
+                case "calcr":
+                    $per_credit = 2;
                     break;
 
             }
 
 
+            //get credit that user's money can buy
             $legal_credit = $money_payed / $per_credit;
 
 
             //check for fradulent transaction
 
+            /**
+                If the credit reqested for does not match the exact money that was sent to the gateway
+             * then the transaction was fraudulent
+             *
+             */
+
             if($legal_credit != $credit){
 
                 return response()->json([
-                    'status' => true,
-                    'message' => "There is an issue with your transaction code: 9821"
-                ]);
+                    'status' => false,
+                    'message' => "There is an issue with your transaction code: 9821",
+                    'legal_credit' => $legal_credit,
+                    'per_credit' => $per_credit,
+                ],400);
             }else{
+
+                $credit =  Credit::where("user_id",Auth::user()->user_id)->first();
+
+                if(!empty($credit)){
+                    $credit->balance = $credit->balance + $legal_credit;
+                    $credit->save();
+
+                }else{
+
+                    $newCredit = new Credit();
+                    $newCredit->balance = $legal_credit;
+                    $newCredit -> save();
+
+                }
+                //credit the user's sms balance
+
+                return response()->json([
+                    'status' => true,
+                    'legal_credit' => $legal_credit,
+                    'per_credit' => $per_credit,
+                ]);
 
                 //credit the user
 
