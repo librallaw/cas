@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post("/absentees/services/mulitiple",'API\AbsenteesController@generateMultipleAbsentees')->name("generateMultipleAbsentees");
 
 
-
+    Route::get("/payment/confirm",'API\PaymentController@confirm_payment')->name("confirm_payment");
 
 
 
