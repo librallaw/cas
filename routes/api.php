@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('members/track/{member_id}','API\MembersController@memberTracking');
     Route::get('members/profile/{member_id}','API\MembersController@memberProfile');
 
+    Route::post('members/editProfile/{member_id}','API\MembersController@editProfile');
+
     Route::get('firsttimers/show','API\FirstTimersController@showFirstTimers');
     Route::post('firsttimers/add','API\FirstTimersController@createFirstTimers');
     Route::post('firsttimers/batchUpload','API\FirstTimersController@batchUpload');

@@ -403,41 +403,48 @@ class MembersController extends Controller
         }
     }
 
-    public function editProfile(Request $request){
+    public function editProfile(Request $request, Members $id){
 
         $request->validate([
+            'church_id'         => 'required',
             'title'             => 'required',
             'full_name'         => 'required',
             'gender'            => 'required',
             'birth_date'        => 'required',
             'phone_number'      => 'required',
-            'email'             => 'required|email:unique:users',
+            'email'             => 'required|email',
             'marital_status'    => 'required',
             'group_assigned'    => 'required',
             'home_address'      => 'required'
         ]);
 
-        $mem_id = $_POST['id'];
-        $member = Members::find($mem_id);
-        $member -> title            = $request->get('title');
-        $member -> full_name        = $request->get('full_name');
-        $member -> gender           = $request->get('gender');
-        $member -> birth_date       = $request->get('birth_date');
-        $member -> phone_number     = $request->get('phone_number');
-        $member -> email            = $request->get('email');
-        $member -> marital_status   = $request->get('marital_status');
-        $member -> group_assigned   = $request->get('group_assigned');
-        $member -> home_address     = $request->get('home_address');
-        $member -> save();
+        //$mem_id = $_POST['id'];
+       //dd($mem_id);
+
+
+
+       // dd($member);
+
+        $id -> church_id        = Auth::user()->unique_id;
+        $id -> title            = $request->get('title');
+        $id -> full_name        = $request->get('full_name');
+        $id -> gender           = $request->get('gender');
+        $id -> birth_date       = $request->get('birth_date');
+        $id -> phone_number     = $request->get('phone_number');
+        $id -> email            = $request->get('email');
+        $id -> marital_status   = $request->get('marital_status');
+        $id -> group_assigned   = $request->get('group_assigned');
+        $id -> home_address     = $request->get('home_address');
+        $id -> save();
 
         return response()->json([
             'status'    => true,
-            'message'   => 'Profile successfully updated'
+            'message'   => 'Profile successfully updated',
+            'data'      =>$id
+
         ]);
 
     }
-
-
 
 
 
