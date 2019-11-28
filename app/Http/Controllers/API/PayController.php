@@ -1,30 +1,25 @@
 <?php
 
-
-
 namespace App\Http\Controllers\API;
 
-
 use App\Credit;
-use App\Http\Controllers\Controller;
-
-
 use App\Payment;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 use Validator;
 
-
-class PaymentController extends Controller
+class PayController extends Controller
 {
+    //
     public function confirm_payment(Request $request)
     {
 
 
         var_dump($_POST);exit;
 
-       // echo "I got here";exit;
+        // echo "I got here";exit;
 
 
         $curl = curl_init();
@@ -163,6 +158,7 @@ class PaymentController extends Controller
                     $credit->user_id = Auth::user()->unique_id;
                     $credit->balance = $legal_credit;
                     $credit->type = $type;
+                    $credit->message = "This is test message and it is going to be deleted, so I want you to ignore it because it is going to be deleted";
                     $credit -> save();
 
                 }
@@ -187,17 +183,17 @@ class PaymentController extends Controller
         }
     }
 
-
     public function returnUserCredit()
     {
+        $credit = Credit::where("user_id",Auth::user()->unique_id)->where("type","smscr")->first();
 
-        dd("I got here");
-       $credit = Credit::where("user_id",Auth::user()->unique_id)->where("type","smscr")->first();
-       if(!empty($credit)){
-           $sms_credit = $credit->balance;
-       }else{
-           $sms_credit = 0;
-       }
+        if(!empty($credit)){
+            $sms_credit = $credit->balance;
+            $sms_message = $credit->message;
+        }else{
+            $sms_credit = 0;
+            $sms_message  = "";
+        }
 
         $ecredit = Credit::where("user_id",Auth::user()->unique_id)->where("type","emcr")->first();
         if(!empty($ecredit)){
@@ -214,24 +210,68 @@ class PaymentController extends Controller
         }
 
 
-       return response()->json([
+        return response()->json([
 
-           "smscr" => $sms_credit,
-           "emcr" => $email_credit,
-           "calcr" => $cal_credit
-       ]);
+            "sms_message" => $sms_message,
+            "smscr" => $sms_credit,
+
+            "emcr" => $email_credit,
+            "calcr" => $cal_credit
+        ]);
     }
 
 
     public function returnUserTransactions(){
-        $credit = Credit::where("user_id",Auth::user()->unique_id)->where("type","smscr")->get();
+        $credit = Payment::where("user_id",Auth::user()->unique_id)->get();
 
-            return response()->json([
-                "status" =>true,
-                "data" => $credit
-            ]);
+        return response()->json([
+            "status" =>true,
+            "data" => $credit
+        ]);
 
     }
 
 
+    public function updateDefaultMessage(Request $request)
+    {
+        //validate
+        $validator = Validator::make($request->all(), [
+            'message'             => 'required',
+            'type'             => 'required',
+
+        ]);
+
+
+        if($validator->fails()){
+            return response()->json([
+                'status'=>false,
+                'message' => 'Sorry your reqistration could not be completed',
+                'errors' =>$validator->errors()->all() ,
+            ], 401);
+        } else {
+
+            $mem = Credit::where("user_id",Auth::user()->unique_id)->where("type",$request->type)->first();
+
+            if(!empty($mem)){
+                $mem->message             = $request->message;
+                $mem->save();
+            }else{
+                $credit = new Credit();
+                $credit->user_id = Auth::user()->unique_id;
+                $credit->balance = 0;
+                $credit->type = $request->type;
+                $credit -> save();
+
+            }
+
+            //$mem = Members::create($request->all());
+
+            return response()->json([
+                'status'    => true,
+                'message'   => "Message Successfully updated.",
+            ]);
+
+        }
+
+    }
 }

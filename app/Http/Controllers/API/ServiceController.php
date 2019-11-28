@@ -35,8 +35,10 @@ class ServiceController extends Controller
         //Validate
         $validate = Validator::make($request->all(), [
 
-            'church_id'     => Auth::user()->unique_id,
-            'service_type'  => 'required'
+            'title'     => "required",
+            'start_time'  => 'required',
+            'service_date'  => 'required'
+
         ]);
 
         if($validate->fails()){
@@ -44,10 +46,12 @@ class ServiceController extends Controller
             return response()->json(['error'=>$validate->errors()],'401');
 
         } else {
+
             $service = new Service();
-            $service -> service_type  = $request -> service_type;
+            $service -> title  = $request -> title;
             $service -> church_id     = Auth::user()->unique_id;
-            $service -> member_id     = $request -> member_id;
+            $service -> start_time     = $request -> start_time;
+            $service -> service_date     = $request -> service_date;
             $service -> save();
 
             return response()->json([
@@ -64,11 +68,7 @@ class ServiceController extends Controller
     {
 
 
-
         $service = Service::where("church_id",Auth::user()->unique_id)->latest()->first();
-
-
-
 
 
         if(count($service) > 0) {

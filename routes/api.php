@@ -84,8 +84,17 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get("/absentees/generate/{date}",'API\AbsenteesController@generateAbsentees')->name("generateAbsentees");
     Route::post("/absentees/services/mulitiple",'API\AbsenteesController@generateMultipleAbsentees')->name("generateMultipleAbsentees");
 
+   // Route::post("/payment/confirm",'API\PayController@confirm_payment')->name("confirm_payment");
 
-    Route::post("/payment/confirm",'API\PaymentController@confirm_payment')->name("confirm_payment");
+    Route::get("/user/credits",'API\PayController@returnUserCredit')->name("returnUserCredit");
+    Route::get("/user/transactions",'API\PayController@returnUserTransactions')->name("returnUserTransactions");
+    Route::post("/user/update/message",'API\PayController@updateDefaultMessage')->name("updateDefaultMessage");
+
+    Route::post('/payment/confirm','API\FirstTimersController@confirm_payment');
+
+
+    Route::post('/job/create','API\JobController@createJob')->name("createJob");
+
 
 
 
