@@ -37,6 +37,7 @@ class ServiceController extends Controller
 
             'title'     => "required",
             'start_time'  => 'required',
+            'unix_time'  => 'required',
             'service_date'  => 'required'
 
         ]);
@@ -47,11 +48,13 @@ class ServiceController extends Controller
 
         } else {
 
+
             $service = new Service();
             $service -> title  = $request -> title;
             $service -> church_id     = Auth::user()->unique_id;
             $service -> start_time     = $request -> start_time;
             $service -> service_date     = $request -> service_date;
+            $service -> unix_time     = $request -> unix_time;
             $service -> save();
 
             return response()->json([
