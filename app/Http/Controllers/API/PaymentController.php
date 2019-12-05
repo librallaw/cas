@@ -22,15 +22,23 @@ class PaymentController extends Controller
     {
 
 
-        var_dump($_POST);exit;
+        //var_dump($_POST);exit;
 
-       // echo "I got here";exit;
+
+
+
 
 
         $curl = curl_init();
         $reference = isset($_POST['reference']) ? $_POST['reference'] : '';
         if (!$reference) {
-            die('No reference supplied');
+
+            return response()->json([
+                'status' => false,
+                'message' => "No reference supplied"
+            ],400);
+
+
         }
 
         curl_setopt_array($curl, array(
@@ -69,7 +77,7 @@ class PaymentController extends Controller
             $payment = Payment::where('reference',$unique_id)->first();
 
             //Check if value has already been given to the user
-            if(count($payment) > 0){
+            if(!empty($payment) > 0){
 
                 return response()->json([
                     'status' => false,
@@ -163,6 +171,7 @@ class PaymentController extends Controller
                     $credit->user_id = Auth::user()->unique_id;
                     $credit->balance = $legal_credit;
                     $credit->type = $type;
+                    $credit->message = "This is test message and it is going to be deleted, so I want you to ignore it because it is going to be deleted";
                     $credit -> save();
 
                 }
@@ -172,6 +181,7 @@ class PaymentController extends Controller
                     'status' => true,
                     'data' => $credit,
                     'per_credit' => $per_credit,
+                    'message' => "Transaction successful"
                 ]);
 
             }

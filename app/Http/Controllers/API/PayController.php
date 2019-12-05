@@ -13,9 +13,13 @@ use Validator;
 class PayController extends Controller
 {
     //
-    public function confirm_payment(Request $request)
+    public function confirm2_payment(Request $request)
     {
 
+        return response()->json([
+            'status' => false,
+            'data' => "kkkk"
+        ]);
 
         var_dump($_POST);exit;
 

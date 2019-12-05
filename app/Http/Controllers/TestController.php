@@ -14,7 +14,7 @@ class TestController extends Controller
 {
     //
 
-    public function index()
+    public function index3()
     {
         $current_time = time();
         $smsjobs  = Job::where("follow_type",'sfu')->where("status",0) ->where("run_time",">=",$current_time)->get();

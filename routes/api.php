@@ -96,7 +96,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get("/user/transactions",'API\PayController@returnUserTransactions')->name("returnUserTransactions");
     Route::post("/user/update/message",'API\PayController@updateDefaultMessage')->name("updateDefaultMessage");
 
-    Route::post('/payment/confirm','API\FirstTimersController@confirm_payment');
+    Route::post('/payment/confirm','API\PaymentController@confirm_payment');
 
 
     Route::post('/job/create','API\JobController@createJob')->name("createJob");

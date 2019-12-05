@@ -69,31 +69,63 @@ class EmailFollowUp extends Command
 
 
 
+            $credit_balance = $credit -> balance;
 
             $basic  = new \Nexmo\Client\Credentials\Basic("c9f6fb8a", "9QGW1oIINCiI1Jgz");
             $client = new \Nexmo\Client($basic);
 
-            foreach ($absentees as $absentee) {
+            //check if the user still hs credit
+            if($credit_balance > 0) {
 
-                // dd($absentee -> full_name);
-                //send sms
-                try {
-                    $message = $client->message()->send([
-                        'to' => $absentee->phone_number,
-                        'from' => 'CLVZ',
-                        'text' => 'Hi '.$absentee -> full_name.', '.$credit->message
-                    ]);
-                    $response = $message->getResponseData();
+                $remaining = $credit_balance;
+                $sent = 0;
 
-                    if ($response['messages'][0]['status'] == 0) {
-                        echo "The message was sent successfully\n";
-                    } else {
-                        echo "The message failed with status: " . $response['messages'][0]['status'] . "\n";
+                for ($i = 0; $i <= $remaining; $i++) {
+
+                    // dd($absentee -> full_name);
+                    //send sms
+                    try {
+                        $message = $client->message()->send([
+                            'to' => $absentees[$i]->phone_number,
+                            'from' => 'CLVZ',
+                            'text' => 'Hi ' . $absentees[$i]->full_name . ', ' . $credit->message
+                        ]);
+                        $response = $message->getResponseData();
+
+                        if ($response['messages'][0]['status'] == 0) {
+                            echo "The message was sent successfully\n";
+                        } else {
+                            echo "The message failed with status: " . $response['messages'][0]['status'] . "\n";
+                        }
+                    }catch (Exception $e) {
+                        continue;
+
+
                     }
-                } catch (Exception $e) {
 
-
+                    $sent++;
                 }
+
+
+                //substract sent sms from remaining balance
+                $remaining_balance  = $remaining - $sent;
+
+                //update new balance to the user's account
+                $credit ->balance = $remaining_balance;
+                $credit -> save();
+
+                //check if the user's credit finished on the road
+                if(count($absentees) != $sent){
+                    //amount of sms remaining to be sent
+                    $amount_remainig = count($absentees) - $sent;
+
+                    // sent notification email to the user informing of the development
+                }
+
+
+            }else{
+
+                continue;
             }
 
 
