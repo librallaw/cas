@@ -9,22 +9,21 @@ use App\Credit;
 use App\Job;
 use App\Members;
 
-
-class EmailFollowUp extends Command
+class SmsFollowUp extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'email:follow';
+    protected $signature = 'sms:follow';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send email notification to members of a church';
+    protected $description = 'Send sms notification to members of a church';
 
     /**
      * Create a new command instance.
@@ -45,15 +44,16 @@ class EmailFollowUp extends Command
     {
         //
 
+
         $current_time = time();
-        $smsjobs  = Job::where("follow_type",'efu')->where("status",0) -> where("run_time","<=",$current_time)->get();
+        $smsjobs  = Job::where("follow_type",'sfu')->where("status",0) -> where("run_time","<=",$current_time)->get();
 
 
         //   dd($smsjobs);
         foreach ($smsjobs as $job){
 
             $credit = Credit::where("user_id", $job->unique_id)
-                ->where("type","emcr")
+                ->where("type","smscr")
                 ->first();
 
             //select members that were present
@@ -64,16 +64,16 @@ class EmailFollowUp extends Command
             //select members that were absent
             $absentees = Members::whereNotIn("id",$attendees)
                 ->where("church_id",$job->unique_id)
-                ->where("email","!=","")
+                ->where("phone_number","!=","")
                 ->get();
 
 
 
             $credit_balance = $credit -> balance;
+
             //dd($credit_balance);
-
-
             //check if the user still hs credit
+
             $success = 0;
             $failed = 0;
 
@@ -88,15 +88,13 @@ class EmailFollowUp extends Command
                 $sent = 0;
                 $rb = $remaining;
 
-                for ($i = 1; ($i <= count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
+                for ($i = 0; ($i < count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
 
-                    // dd($absentee -> full_name);
-                    //send email
-
-                    $messenger ->sendEmail($absentees[$i]->full_name." <".$absentees[$i]->email.">",'Keep Track <noreply@internetmultimediaonline.org>','Pastor is looking for you ','Hi '.
-                        $absentees[$i]->full_name . ', ' . $credit->message);
+                    //send sms to the member via sms micro service
+                    $messenger ->sendText($absentees[$i]->phone_number,'Keep Track','Hi ' . $absentees[$i]->full_name . ', ' . $credit->message);
 
                 }
+
 
                 //update new balance to the user's account
                 $credit ->balance = $rb;
@@ -116,7 +114,7 @@ class EmailFollowUp extends Command
                     //amount of sms remaining to be sent
                     $amount_remainig = count($absentees) - $sent;
 
-                    echo "Sent ".($sent -1)." out of ".count($absentees);
+                    echo "Sent ".($sent )." out of ".count($absentees);
 
                     // sent notification email to the user informing of the development
                 }

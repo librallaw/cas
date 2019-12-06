@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\EmailFollowUp;
+use App\Console\Commands\SmsFollowUp;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +16,9 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        EmailFollowUp::class
+        EmailFollowUp::class,
+        SmsFollowUp::class
+
     ];
 
     /**
@@ -28,6 +31,8 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('email:follow')
                  ->everyMinute();
+        $schedule->command('sms:follow')
+            ->everyMinute();
     }
 
     /**

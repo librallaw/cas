@@ -202,23 +202,29 @@ class PayController extends Controller
         $ecredit = Credit::where("user_id",Auth::user()->unique_id)->where("type","emcr")->first();
         if(!empty($ecredit)){
             $email_credit = $ecredit->balance;
+            $email_message = $ecredit->message;
         }else{
             $email_credit = 0;
+            $email_message="";
         }
 
         $calcredit = Credit::where("user_id",Auth::user()->unique_id)->where("type","calcr")->first();
         if(!empty($calcredit)){
             $cal_credit = $calcredit->balance;
+            $cal_message = $calcredit->message;
         }else{
             $cal_credit = 0;
+            $cal_message = "";
         }
 
 
         return response()->json([
 
             "sms_message" => $sms_message,
-            "smscr" => $sms_credit,
+            "email_message" => $email_message,
+            "call_message" => $cal_message,
 
+            "smscr" => $sms_credit,
             "emcr" => $email_credit,
             "calcr" => $cal_credit
         ]);
@@ -246,6 +252,7 @@ class PayController extends Controller
         ]);
 
 
+
         if($validator->fails()){
             return response()->json([
                 'status'=>false,
@@ -263,6 +270,7 @@ class PayController extends Controller
                 $credit = new Credit();
                 $credit->user_id = Auth::user()->unique_id;
                 $credit->balance = 0;
+                $credit->message = $request->message;;
                 $credit->type = $request->type;
                 $credit -> save();
 

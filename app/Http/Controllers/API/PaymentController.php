@@ -23,12 +23,6 @@ class PaymentController extends Controller
 
 
         //var_dump($_POST);exit;
-
-
-
-
-
-
         $curl = curl_init();
         $reference = isset($_POST['reference']) ? $_POST['reference'] : '';
         if (!$reference) {
@@ -95,7 +89,7 @@ class PaymentController extends Controller
             switch ($type){
 
                 case "emcr":
-                    $per_credit = 10;
+                    $per_credit = 2;
                     break;
 
                 case "smscr":
@@ -201,7 +195,7 @@ class PaymentController extends Controller
     public function returnUserCredit()
     {
 
-        dd("I got here");
+        //dd("I got here");
        $credit = Credit::where("user_id",Auth::user()->unique_id)->where("type","smscr")->first();
        if(!empty($credit)){
            $sms_credit = $credit->balance;

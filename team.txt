@@ -1,8 +1,8 @@
-GuzzleHttp\Exception\ServerException thrown with message "Server error: `POST http://cam.loveworldapis.com/api/call/create/group` resulted in a `500 Internal Server Error` response:
+GuzzleHttp\Exception\ServerException thrown with message "Server error: `POST http://casapi.test/api/user/update/message` resulted in a `500 Internal Server Error` response:
 <!DOCTYPE html><!--
 
 
-ErrorException: explode() expects parameter 2 to be string, array given in file /home/churchattend (truncated...)
+Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1364 Field &#039;message&#039; (truncated...)
 "
 
 Stacktrace:
@@ -18,16 +18,16 @@ Stacktrace:
 #58 GuzzleHttp\Promise\Promise:waitIfPending in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/promises/src/Promise.php:62
 #57 GuzzleHttp\Promise\Promise:wait in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/guzzle/src/Client.php:131
 #56 GuzzleHttp\Client:request in /Users/XYZoe/Sites/cas/vendor/guzzlehttp/guzzle/src/Client.php:89
-#55 GuzzleHttp\Client:__call in /Users/XYZoe/Sites/cas/app/Libraries/Messenger.php:35
-#54 App\Libraries\Messenger:postApi in /Users/XYZoe/Sites/cas/app/Http/Controllers/CallCenterController.php:80
-#53 App\Http\Controllers\CallCenterController:createList in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:54
+#55 GuzzleHttp\Client:__call in /Users/XYZoe/Sites/cas/app/Libraries/Messenger.php:38
+#54 App\Libraries\Messenger:postApi in /Users/XYZoe/Sites/cas/app/Http/Controllers/PayController.php:92
+#53 App\Http\Controllers\PayController:updateMessage in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:54
 #52 call_user_func_array in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:54
 #51 Illuminate\Routing\Controller:callAction in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php:45
 #50 Illuminate\Routing\ControllerDispatcher:dispatch in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Route.php:219
 #49 Illuminate\Routing\Route:runController in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Route.php:176
 #48 Illuminate\Routing\Route:run in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Router.php:680
 #47 Illuminate\Routing\Router:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:30
-#46 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/app/Http/Middleware/CheckAuth.php:24
+#46 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/app/Http/Middleware/CheckAuth.php:26
 #45 App\Http\Middleware\CheckAuth:handle in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:163
 #44 Illuminate\Pipeline\Pipeline:Illuminate\Pipeline\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php:53
 #43 Illuminate\Routing\Pipeline:Illuminate\Routing\{closure} in /Users/XYZoe/Sites/cas/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php:41
