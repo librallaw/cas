@@ -18,7 +18,7 @@ class Messenger
     {
 
 
-        $basic  = new \Nexmo\Client\Credentials\Basic("c9f6fb8a", "9QGW1oIINCiI1Jgz");
+        $basic  = new \Nexmo\Client\Credentials\Basic(env("NEXMO_KEY"), env("NEXMO_SECRET"));
         $client = new \Nexmo\Client($basic);
 
 
@@ -64,7 +64,7 @@ class Messenger
 //
 //
 //       dd($benz);
-        $mgClient =  Mailgun::create('key-ad76d0aa5b0e6fa5ad037cb4efbb7c91');
+        $mgClient =  Mailgun::create(env('MAILGUN_API_KEY'));
         $domain = "internetmultimediaonline.org";
 # Make the call to the client.
         $result = $mgClient->messages()->send($domain, array(
@@ -73,6 +73,19 @@ class Messenger
             'subject' => $subject,
             'text'	=> $text
         ));
+    }
+
+
+    public function make_call()
+    {
+
+        $keypair = new \Nexmo\Client\Credentials\Keypair(
+            file_get_contents(NEXMO_APPLICATION_PRIVATE_KEY_PATH),
+            NEXMO_APPLICATION_ID
+        );
+
+
+        $client = new \Nexmo\Client($keypair);
     }
 
 

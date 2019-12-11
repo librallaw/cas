@@ -41,16 +41,17 @@ class EmailFollowUp extends Command
      *
      * @return mixed
      */
+
     public function handle(Messenger $messenger)
     {
         //
 
         $current_time = time();
-        $smsjobs  = Job::where("follow_type",'efu')->where("status",0) -> where("run_time","<=",$current_time)->get();
+        $jobs  = Job::where("follow_type",'efu')->where("status",0) -> where("run_time","<=",$current_time)->get();
 
+        echo "ss";
 
-        //   dd($smsjobs);
-        foreach ($smsjobs as $job){
+        foreach ($jobs as $job){
 
             $credit = Credit::where("user_id", $job->unique_id)
                 ->where("type","emcr")
@@ -66,6 +67,9 @@ class EmailFollowUp extends Command
                 ->where("church_id",$job->unique_id)
                 ->where("email","!=","")
                 ->get();
+
+
+            //  dd($absentees);
 
 
 
@@ -87,16 +91,23 @@ class EmailFollowUp extends Command
 
                 $sent = 0;
                 $rb = $remaining;
+                //dd(count($absentees));
 
-                for ($i = 1; ($i <= count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
+                for ($i = 0; ($i < count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
 
-                    // dd($absentee -> full_name);
+                    //dd($absentee -> full_name);
                     //send email
 
-                    $messenger ->sendEmail($absentees[$i]->full_name." <".$absentees[$i]->email.">",'Keep Track <noreply@internetmultimediaonline.org>','Pastor is looking for you ','Hi '.
+                    $messenger ->sendEmail($absentees[$i]->full_name." <".$absentees[$i]->email.">",'Keep Track
+                     <noreply@internetmultimediaonline.org>','Pastor is looking for you ','Hi '.
                         $absentees[$i]->full_name . ', ' . $credit->message);
 
+                    //dd($messenger);
+
+                    echo $i;
+
                 }
+
 
                 //update new balance to the user's account
                 $credit ->balance = $rb;
