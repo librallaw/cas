@@ -179,13 +179,25 @@ class MembersController extends Controller
 
     public function bulkUpload(Request $request) {
 
+
+
+
         if($request->hasFile('file')) {
 
-            $path = $request->file('file')->getRealPath();
+            $path = $request->file('file');
+
+            return response()->json([
+                'status'    => true,
+                'message'   => $_POST,
+            ]);
+
+
+
+
 
             //Excel::import(new CsvImport, request()->file('file'));
             $import = new CsvImport();
-            $import->import(request()->file('file'));
+            $import->import($request->file('file'));
 
             foreach ($import->failures() as $failure) {
                 $failure->row(); // row that went wrong

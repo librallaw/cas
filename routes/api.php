@@ -26,15 +26,11 @@ Route::post('register', 'Auth2Controller@register');
 
 Route::get('trackAttendance', 'Auth2Controller@trackAttendance');
 
-
-
 Route::post("data/services/auth",'API\DataCaptringController@auth')->name("dataAuth");
 
 Route::get('profile/edit', 'AuthController@editProfile');
 
-
 Route::group(['middleware' => 'auth:api'], function(){
-
 
 
     Route::post('details', 'API\UserController@details');
@@ -98,16 +94,13 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('/payment/confirm','API\PaymentController@confirm_payment');
 
-
     Route::post('/job/create','API\JobController@createJob')->name("createJob");
-
-
-
-
+    Route::post("/user/upload/audio",'VoiceController@uploadAudio')->name("uploadAudio");
 
 });
 
 
+Route::get("/user/voice",'VoiceController@returnVoice')->name("returnVoice");
 
 
 

@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\ClientException;
 use Mailgun\Mailgun;
 use Validator;
 
+
 class Messenger
 {
     //
@@ -76,16 +77,57 @@ class Messenger
     }
 
 
-    public function make_call()
+    public function make_call($phone_number,$unique_id)
+    {
+        // Your Account SID and Auth Token from twilio.com/console
+        $account_sid = 'ACf8471e6404db9f94db1c8032942476d3';
+        $auth_token = '1626182520540c3a99d097fa6835fcfd';
+        // In production, these should be environment variables. E.g.:
+        // $auth_token = $_ENV["TWILIO_ACCOUNT_SID"]
+
+        // A Twilio number you own with Voice capabilities
+        $twilio_number = "+12055764670";
+
+        // Where to make a voice call (your cell phone?)
+        $to_number = $phone_number;
+
+        $client = new \Twilio\Rest\Client($account_sid, $auth_token);
+        $client->account->calls->create(
+            $to_number,
+            $twilio_number,
+            array(
+                "url" => "http://apis.keeptrack.online/api/user/voice?user_id=".$unique_id
+            )
+        );
+    }
+
+
+    public function twiloCall()
     {
 
-        $keypair = new \Nexmo\Client\Credentials\Keypair(
-            file_get_contents(NEXMO_APPLICATION_PRIVATE_KEY_PATH),
-            NEXMO_APPLICATION_ID
-        );
 
 
-        $client = new \Nexmo\Client($keypair);
+// Your Account SID and Auth Token from twilio.com/console
+$account_sid = 'ACf8471e6404db9f94db1c8032942476d3';
+$auth_token = '1626182520540c3a99d097fa6835fcfd';
+// In production, these should be environment variables. E.g.:
+// $auth_token = $_ENV["TWILIO_ACCOUNT_SID"]
+
+// A Twilio number you own with Voice capabilities
+$twilio_number = "+12055764670";
+
+// Where to make a voice call (your cell phone?)
+$to_number = "+2347039592166";
+
+$client = new \Twilio\Rest\Client($account_sid, $auth_token);
+$client->account->calls->create(
+    $to_number,
+    $twilio_number,
+    array(
+        "url" => "http://demo.twilio.com/docs/voice.xml"
+    )
+);
+
     }
 
 
