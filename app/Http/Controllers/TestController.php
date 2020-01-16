@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\Credit;
 use App\Job;
+use App\Jobs\ProcessJob;
 use App\Jobs\SendCallMessage;
 use App\Libraries\Messenger;
 use App\Members;
@@ -20,112 +21,14 @@ class TestController extends Controller
     public function index(Messenger $messenger)
     {
         //
-
-
         $current_time = time();
         $caljobs  = Job::where("follow_type",'cfu')->where("status",0) -> where("run_time","<=",$current_time)->get();
 
+        foreach ($caljobs as $jobi){
 
-
-//        dd($caljobs);
-
-        foreach ($caljobs as $job){
-
-            $credit = Credit::where("user_id", $job->unique_id)
-                ->where("type","calcr")
-                ->first();
-
-            //select members that were present
-            $attendees =  Attendance::where("service_date",$job->service_date)
-                ->where("church_id",$job->unique_id)
-                ->pluck("member_id")->toArray();
-
-            //select members that were absent
-            $absentees = Members::whereNotIn("id",$attendees)
-                ->where("church_id",$job->unique_id)
-                ->where("phone_number","!=","")
-                ->get();
-
-            //dd($absentees);
-
-            $credit_balance = $credit -> balance;
-
-            //dd($credit_balance);
-            //check if the user still hs credit
-
-            $success = 0;
-            $failed = 0;
-
-            if($credit_balance > 0) {
-
-                 // echo "I got here";exit;
-
-                $remaining = $credit_balance;
-
-                // dd(count($absentees));
-
-                $sent = 0;
-                $rb = $remaining;
-
-
-
-                for ($i = 0; ($i < count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
-
-                    //send sms to the member via sms micro service
-
-                    SendCallMessage::dispatch(Members::find($absentees[$i]->id),$job->unique_id);
-
-                    //$messenger->make_call("+".$absentees[$i]->phone_number,$job->unique_id);
-
-
-                }
-
-
-                //update new balance to the user's account
-                $credit ->balance = $rb;
-                $credit -> save();
-
-
-                echo "remaining-balance= ".$rb."<br />";
-                echo "sent = ".$sent."<br />";
-                echo "failed = ".(count($absentees) - (int) $sent)."<br />";
-
-
-                $success = $sent;
-                $failed = (count($absentees) - (int) $sent);
-
-                //check if the user's credit finished on the road
-                if(count($absentees) != $sent){
-                    //amount of sms remaining to be sent
-                    $amount_remainig = count($absentees) - $sent;
-
-                    echo "Sent ".($sent )." out of ".count($absentees);
-
-                    // sent notification email to the user informing of the development
-                }
-
-
-            }else{
-
-                continue;
-            }
-
-
-            //update job with status
-
-            $job = Job::where("id",$job->id)->first();
-
-            $job->status = 1;
-            $job->success = $success;
-            $job->failed = $failed;
-
-            $job ->save();
-
-
-
+            ProcessJob::dispatch($jobi);
 
         }
-
 
     }
 

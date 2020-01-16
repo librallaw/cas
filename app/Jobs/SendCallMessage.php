@@ -33,7 +33,7 @@ class SendCallMessage implements ShouldQueue
         $this->twilio_number = "+12055764670";
 
         $account_sid = 'ACf8471e6404db9f94db1c8032942476d3';
-        $auth_token = '1626182520540c3a99d097fa6835fcfd';
+        $auth_token = '4471dbf76b5aff510c3f84a37bce5579';
         // In production, these should be environment variables. E.g.:
         // $auth_token = $_ENV["TWILIO_ACCOUNT_SID"]
 
