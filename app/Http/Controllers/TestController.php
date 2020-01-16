@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\Credit;
 use App\Job;
+use App\Jobs\SendCallMessage;
 use App\Libraries\Messenger;
 use App\Members;
 use App\User;
@@ -26,6 +27,8 @@ class TestController extends Controller
 
 
 
+//        dd($caljobs);
+
         foreach ($caljobs as $job){
 
             $credit = Credit::where("user_id", $job->unique_id)
@@ -45,10 +48,6 @@ class TestController extends Controller
 
             //dd($absentees);
 
-
-
-
-
             $credit_balance = $credit -> balance;
 
             //dd($credit_balance);
@@ -59,7 +58,7 @@ class TestController extends Controller
 
             if($credit_balance > 0) {
 
-                //  echo "I got here";exit;
+                 // echo "I got here";exit;
 
                 $remaining = $credit_balance;
 
@@ -68,10 +67,15 @@ class TestController extends Controller
                 $sent = 0;
                 $rb = $remaining;
 
+
+
                 for ($i = 0; ($i < count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
 
                     //send sms to the member via sms micro service
-                    $messenger->make_call("+".$absentees[$i]->phone_number,$job->unique_id);
+
+                    SendCallMessage::dispatch(Members::find($absentees[$i]->id),$job->unique_id);
+
+                    //$messenger->make_call("+".$absentees[$i]->phone_number,$job->unique_id);
 
 
                 }

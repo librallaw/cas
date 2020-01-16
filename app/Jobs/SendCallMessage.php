@@ -20,6 +20,11 @@ class SendCallMessage implements ShouldQueue
      * @return void
      */
 
+    private $user;
+    private $unique_id;
+    private $twilio_number;
+    private $client;
+
 
     public function __construct(Members $user,$unique_id)
     {
@@ -42,6 +47,10 @@ class SendCallMessage implements ShouldQueue
      */
     public function handle()
     {
+
+
+        //dd($this->user->phone_number);
+        //echo "I gothere here here here and here";exit;
 
         $this->client->account->calls->create(
 
