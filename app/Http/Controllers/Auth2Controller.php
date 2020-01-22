@@ -249,7 +249,7 @@ class Auth2Controller extends Controller
 
         $request->validate([
             'old_password' => 'required',
-            'new_password' => 'required|string|min:6|confirmed',
+            'new_password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = Auth::user();
