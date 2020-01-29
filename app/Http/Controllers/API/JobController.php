@@ -32,7 +32,8 @@ class JobController extends Controller
                 foreach($jobs as $job){
                     $newJob = new Job();
                     $newJob -> unique_id = Auth::user()->unique_id;
-                    $newJob -> run_time = $job['run_time'];
+                    $newJob -> run_time = $job['run_time'] - 3600;
+                    $newJob -> run_time_human = date("d m y: h:i:s",$job['run_time'] - 3600);
                     $newJob -> service_date = $job['service_date'];
                     $newJob -> follow_type = $job['follow_type'];
                     $newJob->save();

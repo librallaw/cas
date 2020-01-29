@@ -18,17 +18,112 @@ class TestController extends Controller
 {
     //
 
-    public function indesssx(Messenger $messenger)
+    public function index(Messenger $messenger)
     {
         //
-       echo "sssss";exit;
+        $current_time = time();
+        $caljobs  = Job::where("follow_type",'cfu')->where("status",0) -> where("run_time","<=",$current_time)->get();
+
+        foreach ($caljobs as $jobi){
+
+            $credit = Credit::where("user_id", $jobi->unique_id)
+                ->where("type","calcr")
+                ->first();
+
+            //select members that were present
+            $attendees =  Attendance::where("service_date",$jobi->service_date)
+                ->where("church_id",$jobi->unique_id)
+                ->pluck("member_id")->toArray();
+
+            //select members that were absent
+            $absentees = Members::whereNotIn("id",$attendees)
+                ->where("church_id",$jobi->unique_id)
+                ->where("phone_number","!=","")
+                ->get();
+
+            //dd($absentees);
+
+            $credit_balance = $credit -> balance;
+
+            //dd($credit_balance);
+            //check if the user still hs credit
+
+            $success = 0;
+            $failed = 0;
+
+            if($credit_balance > 0) {
+
+                // echo "I got here";exit;
+
+                $remaining = $credit_balance;
+
+                // dd(count($absentees));
+
+                $sent = 0;
+                $rb = $remaining;
+
+
+                //  dd($absentees);
+
+                for ($i = 0; ($i < count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
+
+                    //send sms to the member via sms micro service
+
+                    SendCallMessage::dispatch(Members::find($absentees[$i]->id),$jobi->unique_id);
+
+                    //$messenger->make_call("+".$absentees[$i]->phone_number,$jobi->unique_id);
+
+
+                }
+
+
+                //update new balance to the user's account
+                $credit ->balance = $rb;
+                $credit -> save();
+
+
+                echo "remaining-balance= ".$rb."<br />";
+                echo "sent = ".$sent."<br />";
+                echo "failed = ".(count($absentees) - (int) $sent)."<br />";
+
+
+                $success = $sent;
+                $failed = (count($absentees) - (int) $sent);
+
+                //check if the user's credit finished on the road
+                if(count($absentees) != $sent){
+                    //amount of sms remaining to be sent
+                    $amount_remainig = count($absentees) - $sent;
+
+                    echo "Sent ".($sent )." out of ".count($absentees);
+
+                    // sent notification email to the user informing of the development
+                }
+
+
+            }else{
+
+                //continue; notify user of low Balance
+            }
+
+
+            //update job with status
+
+            $jobi = Job::where("id",$jobi->id)->first();
+
+            $jobi->status = 1;
+            $jobi->success = $success;
+            $jobi->failed = $failed;
+
+            $jobi ->save();
+
+        }
 
     }
 
-    public function index()
+    public function indexmmm()
     {
 
-        echo "testing microppe";exit;
         // Your Account SID and Auth Token from twilio.com/console
         $account_sid = 'ACf8471e6404db9f94db1c8032942476d3';
         $auth_token = '1626182520540c3a99d097fa6835fcfd';
@@ -39,17 +134,14 @@ class TestController extends Controller
         $twilio_number = "+12055764670";
 
         // Where to make a voice call (your cell phone?)
-        $to_number = "+2347039592166";
+        $to_number = "+2348067005923";
 
         $client = new \Twilio\Rest\Client($account_sid, $auth_token);
         $client->account->calls->create(
             $to_number,
             $twilio_number,
-
             array(
-
-                "twiml"=>'<Response><Say>Ahoy, World!</Say></Response>',
-
+                "url" => "http://demo.twilio.com/docs/voice.xml"
             )
         );
 
@@ -59,6 +151,7 @@ class TestController extends Controller
     public function index6(Messenger $messenger)
     {
         //
+
         $current_time = time();
         $jobs  = Job::where("follow_type",'efu')->where("status",0) -> where("run_time","<=",$current_time)->get();
 
@@ -81,12 +174,16 @@ echo "ss";
                 ->where("email","!=","")
                 ->get();
 
-            //  dd($absentees);
+
+          //  dd($absentees);
+
+
 
             $credit_balance = $credit -> balance;
             //dd($credit_balance);
-            //check if the user still hs credit
 
+
+            //check if the user still hs credit
             $success = 0;
             $failed = 0;
 

@@ -77,7 +77,7 @@ class ProcessJob implements ShouldQueue
                 $rb = $remaining;
 
 
-                //  dd($absentees);
+                  //dd($absentees);
 
                 for ($i = 0; ($i < count($absentees) && $rb > 0); $i++,$rb--,$sent++) {
 
@@ -125,9 +125,9 @@ class ProcessJob implements ShouldQueue
 
             $job = Job::where("id",$this->jobion->id)->first();
 
-            $this->jobion->status = 1;
-            $this->jobion->success = $success;
-            $this->jobion->failed = $failed;
+            $job->status = 1;
+            $job->success = $success;
+            $job->failed = $failed;
 
             $job ->save();
 

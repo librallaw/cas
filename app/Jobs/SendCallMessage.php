@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Credit;
 use App\Members;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -52,13 +53,26 @@ class SendCallMessage implements ShouldQueue
         //dd($this->user->phone_number);
         //echo "I gothere here here here and here";exit;
 
+
+        $userid =  $this->unique_id;
+
+        $call = Credit::where("user_id",$userid)->where("type","calcr")->first();
+
+        if(!empty($call)){
+            $audio = $call->message;
+        }else{
+            $audio = "http://demo.twilio.com/docs/classic.mp3";
+        }
+
         $this->client->account->calls->create(
 
             $this->user->phone_number,
             $this->twilio_number,
 
             array(
-                "url" => "http://apis.keeptrack.online/api/user/voice?user_id=".$this->unique_id
+
+                "twiml"=>"<Response><Play>$audio</Play></Response>",
+
             )
         );
 

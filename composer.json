@@ -19,7 +19,7 @@
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/message": "^1.8",
         "tpyo/amazon-s3-php-class": "^0.5.1",
-        "twilio/sdk": "^5.41"
+        "twilio/sdk": "^5.42"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

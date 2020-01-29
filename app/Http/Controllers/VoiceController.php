@@ -17,23 +17,17 @@ class VoiceController extends Controller
 
         $call = Credit::where("user_id",$userid)->where("type","calcr")->first();
 
-
         if(!empty($call)){
             $audio = $call->message;
         }else{
             $audio = "http://demo.twilio.com/docs/classic.mp3";
         }
 
+        return response()->json([
+            "status" => true,
+            "audio" => $audio
+        ]);
 
-
-
-        $content =
-            '<Response>
-                <Say voice="alice">Thanks for trying our documentation. Enjoy!</Say>
-                <Play>'.$audio.'</Play>
-               </Response>
-             ';
-        return response($content,200,['Content-Type' => 'application/xml']);
     }
 
 

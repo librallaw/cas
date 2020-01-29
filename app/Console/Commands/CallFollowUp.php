@@ -43,8 +43,12 @@ class CallFollowUp extends Command
     {
         $current_time = time();
 
+
+
         //fetch jobs where run time has reached
         $caljobs  = Job::where("follow_type",'cfu')->where("status",0) -> where("run_time","<=",$current_time)->get();
+
+        //dd($caljobs);
 
         foreach ($caljobs as $jobi){
             //call nested dispatcher

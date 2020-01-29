@@ -48,7 +48,6 @@ class ServiceController extends Controller
 
         } else {
 
-
             $service = new Service();
             $service -> title  = $request -> title;
             $service -> church_id     = Auth::user()->unique_id;
@@ -62,6 +61,7 @@ class ServiceController extends Controller
                 'message'   => "Service created successfully",
                 'service'    => $service
             ]);
+
         }
 
     }
@@ -70,12 +70,9 @@ class ServiceController extends Controller
     public function lastService()
     {
 
-
         $service = Service::where("church_id",Auth::user()->unique_id)->latest()->first();
 
-
         if(count($service) > 0) {
-
 
             return response()->json([
                 'status' => true,
@@ -83,8 +80,8 @@ class ServiceController extends Controller
                 'data' => $service->attendance,
                 'attendance' => count($service->attendance)
             ]);
-        }
 
+        }
 
         else {
 
