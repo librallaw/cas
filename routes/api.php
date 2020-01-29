@@ -24,6 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('login', 'Auth2Controller@login');
 Route::post('register', 'Auth2Controller@register');
 
+
 Route::get('trackAttendance', 'Auth2Controller@trackAttendance');
 
 Route::post("data/services/auth",'API\DataCaptringController@auth')->name("dataAuth");
@@ -31,6 +32,8 @@ Route::post("data/services/auth",'API\DataCaptringController@auth')->name("dataA
 Route::get('profile/edit', 'AuthController@editProfile');
 
 Route::group(['middleware' => 'auth:api'], function(){
+    
+    Route::post('reset/password', 'Auth2Controller@resetPassword');
 
 
     Route::post('details', 'API\UserController@details');

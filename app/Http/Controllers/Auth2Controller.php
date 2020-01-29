@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
 class Auth2Controller extends Controller
@@ -82,8 +83,6 @@ class Auth2Controller extends Controller
      */
 
     public function login(Request $request){
-
-
 
         $validator = Validator::make($request->all(), [
             'email'     => 'required|string|email',
@@ -227,6 +226,39 @@ class Auth2Controller extends Controller
             'status'    => true,
             'user'      => $user,
             'message'   => 'Password updated successfully'
+        ]);
+    }
+
+
+    public function resetPassword(Request $request){
+        if (!(Hash::check($request->old_password, Auth::user()->password))) {
+
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Current password does not match'
+            ]);
+        }
+
+        if(strcmp($request->old_password, $request->new_password) == 0){
+
+            return response()->json([
+                'status'    => false,
+                'message'   => 'New Password cannot be same as your current password'
+            ]);
+        }
+
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json([
+            'status'    => true,
+            'message'   => 'Password has been changed successfully'
         ]);
     }
 
