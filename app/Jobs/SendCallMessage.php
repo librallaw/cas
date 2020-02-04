@@ -70,9 +70,7 @@ class SendCallMessage implements ShouldQueue
             $this->twilio_number,
 
             array(
-
                 "twiml"=>"<Response><Play>$audio</Play></Response>",
-
             )
         );
 
